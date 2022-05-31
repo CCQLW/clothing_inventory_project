@@ -3,22 +3,26 @@ use clothing_inventory
 
 CREATE TABLE GRN
 (
-id INT,
-receipt_number VARCHAR(16),
-warehouse VARCHAR(50),
-storage_time DATE,
-agent VARCHAR(50),
-source VARCHAR(50),
-put_delete BINARY
+id INT auto_increment COMMENT '序号',
+detail_id INT COMMENT '入库明细序号',
+receipt_number VARCHAR(16) NOT NULL COMMENT '单据编号',
+warehouse VARCHAR(50) NOT NULL COMMENT '所入仓库',
+storage_time DATE NOT NULL COMMENT '入库时间',
+agent VARCHAR(50) NOT NULL COMMENT '经办人',
+source VARCHAR(50) NOT NULL COMMENT '来源',
+put_delete BINARY NOT NULL COMMENT '是否删除',
+PRIMARY KEY (id),
+FOREIGN KEY (detail_id) REFERENCES warehousing_detail(id)
 );
 
 CREATE TABLE warehousing_detail
 (
-id INT,
-article_number VARCHAR(50),
-trade_name VARCHAR(50),
-color_no VARCHAR(50),
-size INT,
-number INT,
-put_delete BINARY
+id INT auto_increment comment '序号',
+article_number VARCHAR(50) NOT NULL COMMENT '货号',
+trade_name VARCHAR(50) NOT NULL COMMENT '商品名',
+color_no VARCHAR(50) NOT NULL COMMENT '色号',
+size INT NOT NULL COMMENT '尺码',
+number INT NOT NULL COMMENT '数量',
+put_delete BINARY NOT NULL COMMENT '是否删除',
+PRIMARY KEY (id)
 );
