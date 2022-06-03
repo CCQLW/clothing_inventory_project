@@ -27,6 +27,17 @@ put_delete BINARY NOT NULL COMMENT '是否删除',
 PRIMARY KEY (id)
 );
 
+CREATE TABLE article_number
+(
+id INT auto_increment comment '序号',
+article_number VARCHAR(50) NOT NULL COMMENT '货号',
+trade_name VARCHAR(50) NOT NULL COMMENT '商品名',
+color_no VARCHAR(50) NOT NULL COMMENT '色号',
+size INT NOT NULL COMMENT '尺码',
+put_delete BINARY NOT NULL COMMENT '是否删除',
+PRIMARY KEY (id)
+);
+
 CREATE TABLE USER (
 	id INT UNIQUE auto_increment COMMENT "编号",
 	username VARCHAR (45) COMMENT "用户名",
