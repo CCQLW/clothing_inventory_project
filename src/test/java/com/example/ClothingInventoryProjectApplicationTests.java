@@ -1,7 +1,9 @@
 package com.example;
 
 import com.example.dao.Article_numberDao;
+import com.example.dao.UserDao;
 import com.example.domain.Article_number;
+import com.example.domain.User;
 import com.example.service.IArticle_numberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,18 @@ class ClothingInventoryProjectApplicationTests {
     void testGetList(){
         List<Article_number> list = iArticle_numberService.getList();
         System.out.println(list);
+    }
+
+    @Autowired
+    private UserDao userDao;
+
+    @Test
+    void testUserSave(){
+        User user = new User();
+        user.setUsername("bbbb");
+        user.setPasswd("bbbb");
+        user.setAuthority(12);
+        userDao.insert(user);
     }
 
 }
