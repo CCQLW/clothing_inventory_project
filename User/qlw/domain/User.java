@@ -35,5 +35,5 @@ public class User implements Serializable {
     private Integer authority;
     //      删除 0是 没删，1 删除
     @TableLogic(value = "0", delval = "1")
-    private Integer is_delete;
+    private Integer isDelete;
 }

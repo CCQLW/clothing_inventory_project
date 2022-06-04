@@ -57,6 +57,7 @@ public class UserControllerResult {
         return new Result("success",userService.getByUsernameUser(username));
     }
 
+
 //    @Override  如果报错证明没有覆盖 springboot2-p40 8分23
 //    @GetMapping
 //    public List<User> getall(){

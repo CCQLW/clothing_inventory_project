@@ -1,11 +1,7 @@
 package com.qlw.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
-import com.qlw.dao.Delivery_detailsDao;
 import com.qlw.domain.Delivery_details;
-import com.qlw.domain.Delivery_details;
-import com.qlw.service.IDelivery_detailsService;
 import com.qlw.service.IDelivery_detailsService;
 import com.qlw.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/delivery_details")
 public class Delivery_detailsController {
+
     @Autowired
     private IDelivery_detailsService delivery_detailsService;
 

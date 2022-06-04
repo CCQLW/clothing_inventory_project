@@ -28,17 +28,17 @@ public class Delivery_details implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     //    货号
-    private String article_number;
+    private String articleNumber;
     //    商品名
-    private String trade_name;
+    private String tradeName;
     //    色号
-    private String color_no;
+    private String colorNo;
     //    尺码
     private Integer size;
     //    数量
     private Integer number;
     //    是否删除 0是 没删，1 删除
     @TableLogic(value = "0", delval = "1")
-    private Integer is_delete;
+    private Integer isDelete;
 
 }
