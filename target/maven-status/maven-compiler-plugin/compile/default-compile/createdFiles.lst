@@ -1,0 +1,7 @@
+com\Article\dao\Article_numberDao.class
+com\Article\CodeGenerator.class
+com\Article\service\impl\Article_numberServiceImpl.class
+com\Article\service\IArticle_numberService.class
+com\Article\controller\Article_numberController.class
+com\example\ClothingInventoryProjectApplication.class
+com\Article\domain\Article_number.class
