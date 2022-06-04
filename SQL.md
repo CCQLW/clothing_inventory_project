@@ -53,26 +53,25 @@ CREATE TABLE USER (
 
 CREATE TABLE delivery_details (
 	id INT auto_increment COMMENT '序号',
-	article_number VARCHAR (50) NOT NULL COMMENT '货号',
-	trade_name VARCHAR (50) NOT NULL COMMENT '商品名',
-	color_no VARCHAR (50) NOT NULL COMMENT '色号',
-	size INT NOT NULL COMMENT '尺码',
-	number INT NOT NULL COMMENT '数量',
-	is_delete INT NOT NULL COMMENT '是否删除',
+	article_number VARCHAR (50) COMMENT '货号',
+	trade_name VARCHAR (50) COMMENT '商品名',
+	color_no VARCHAR (50) COMMENT '色号',
+	size INT COMMENT '尺码',
+	number INT  COMMENT '数量',
+	is_delete INT DEFAULT '0' COMMENT '是否删除',
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE delivery_order (
 	id INT auto_increment COMMENT '序号',
 	detail_id INT COMMENT '出库明细序号',
-	receipt_number VARCHAR (16) NOT NULL COMMENT '单据编号',
-	warehouse VARCHAR (50) NOT NULL COMMENT '所出仓库',
-	storage_time DATE NOT NULL COMMENT '出库时间',
-	agent VARCHAR (50) NOT NULL COMMENT '经办人',
-	whereabouts VARCHAR (50) NOT NULL COMMENT '去处',
-	is_delete INT NOT NULL COMMENT '是否删除',
+	receipt_number VARCHAR (50)  COMMENT '单据编号',
+	warehouse VARCHAR (50)  COMMENT '所出仓库',
+	storage_time DATE  COMMENT '出库时间',
+	agent VARCHAR (50)  COMMENT '经办人',
+	whereabouts VARCHAR (50)  COMMENT '去处',
+	is_delete INT DEFAULT '0' COMMENT '是否删除',
 	PRIMARY KEY (id),
 	FOREIGN KEY (detail_id) REFERENCES delivery_details (id)
 );
 ```
-
