@@ -16,4 +16,7 @@ import java.util.List;
 public interface IUserService extends IService<User> {
     public User getByUsernameUser(String username);
     public List<User> getAll();
+    public int saveUser(User user);
+    public int deleteUser(Integer id);
+    public int updateUser(String username, String passwd);
 }

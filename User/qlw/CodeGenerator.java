@@ -39,7 +39,7 @@
 //
 //        //策略设置
 //        StrategyConfig strategyConfig = new StrategyConfig();
-//        strategyConfig.setInclude("");  //设置当前参与生成的表名，参数为可变参数
+//        strategyConfig.setInclude("delivery_details");  //设置当前参与生成的表名，参数为可变参数
 //        strategyConfig.setRestControllerStyle(true);    //设置是否启用Rest风格
 //        strategyConfig.setLogicDeleteFieldName("is_delete");  //设置逻辑删除字段名
 //        strategyConfig.setEntityLombokModel(true);  //设置是否启用lombok

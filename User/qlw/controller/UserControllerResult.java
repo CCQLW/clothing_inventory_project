@@ -35,7 +35,7 @@ public class UserControllerResult {
     }
 
     @PutMapping("/{username}/{passwd}")
-    public Result updateUser(@PathVariable String username,@PathVariable String passwd){
+    public Result changePassword(@PathVariable String username,@PathVariable String passwd){
         User user  = userService.getByUsernameUser(username);
         user.setPasswd(passwd);
         return new Result(userService.updateById(user));
@@ -46,9 +46,15 @@ public class UserControllerResult {
         return new Result("success",userService.list());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Result getUserById(@PathVariable Integer id){
         return new Result("success",userService.getById(id));
+    }
+
+    @GetMapping("/username/{username}")
+    public Result getUserByUsername(@PathVariable String username){
+        System.out.println(username);
+        return new Result("success",userService.getByUsernameUser(username));
     }
 
 //    @Override  如果报错证明没有覆盖 springboot2-p40 8分23

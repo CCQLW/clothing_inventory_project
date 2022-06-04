@@ -7,7 +7,6 @@ import com.qlw.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -23,11 +22,10 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUserService {
     @Autowired
     UserDao userDao;
-    IUserService userService;
 
     public User getByUsernameUser(String username) {
         LambdaQueryWrapper<User> lambdaQuery = new LambdaQueryWrapper<User>();
-        lambdaQuery.eq(User::getUsername, username);
+        lambdaQuery.eq(username != null, User::getUsername, username);
         return userDao.selectOne(lambdaQuery);
     }
 
@@ -35,23 +33,18 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements IUser
         return userDao.selectList(null);
     }
 
-    public boolean saveUser(User user) {
-        return userService.save(user);
+    public int saveUser(User user) {
+        return userDao.insert(user);
     }
 
-    public boolean deleteUser(Integer id) {
-        return userService.removeById(id);
+    public int deleteUser(Integer id) {
+        return userDao.deleteById(id);
     }
 
-    public boolean updateUser(String username, String passwd) {
-        User user = userService.getByUsernameUser(username);
+    public int updateUser(String username, String passwd) {
+        User user = getByUsernameUser(username);
         user.setPasswd(passwd);
-        return userService.updateById(user);
+        return userDao.updateById(user);
     }
-
-    public User getUserById(Integer id) {
-        return userService.getById(id);
-    }
-
 
 }
