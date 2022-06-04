@@ -24,15 +24,15 @@ public class Article_number {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;// 序号
 
-    private String article_number;//货号
+    private String articleNumber;//货号
 
-    private String trade_name;    //商品名
+    private String tradeName;    //商品名
 
-    private String color_no;    //色号
+    private String colorNo;    //色号
 
     private Integer size;    //尺码
 
     @TableLogic(value = "0", delval = "1")
-    private byte put_delete;   //是否删除
+    private byte putDelete;   //是否删除
 
 }

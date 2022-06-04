@@ -18,9 +18,9 @@ class ClothingInventoryProjectApplicationTests {
     @Test
     void testSave(){
         Article_number articleNumber = new Article_number();
-        articleNumber.setTrade_name("T恤");
-        articleNumber.setArticle_number("bbbbb");
-        articleNumber.setColor_no("bbbbb");
+        articleNumber.setTradeName("T恤");
+        articleNumber.setArticleNumber("bbbbb");
+        articleNumber.setColorNo("bbbbb");
         articleNumber.setSize(170);
         iArticle_numberService.save(articleNumber);
     }
@@ -28,8 +28,9 @@ class ClothingInventoryProjectApplicationTests {
     @Test
     void testUpdate(){
         Article_number articleNumber = new Article_number();
-        articleNumber.setArticle_number("DCT-blue-173");
-        articleNumber.setColor_no("blue");
+        articleNumber.setArticleNumber("DCT-blue-173");
+        articleNumber.setColorNo("blue");
+        articleNumber.setId(5);
         iArticle_numberService.update(articleNumber);
     }
 
@@ -42,7 +43,6 @@ class ClothingInventoryProjectApplicationTests {
     void testGetById(){
         Article_number articleNumber = iArticle_numberService.getById(3);
         System.out.println(articleNumber);
-        System.out.println(articleNumber.getArticle_number());
     }
 
     @Test
