@@ -30,7 +30,7 @@ public class Article_numberServiceImpl implements IArticle_numberService {
     }
 
     public boolean update(Article_number articleNumber){
-        return articleNumberDao.update(articleNumber, null) > 0;
+        return articleNumberDao.updateById(articleNumber) > 0;
     }
 
     public Article_number getById(Integer id){

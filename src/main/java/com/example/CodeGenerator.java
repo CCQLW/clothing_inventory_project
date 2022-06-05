@@ -1,4 +1,4 @@
-package com.Article;
+package com.example;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;

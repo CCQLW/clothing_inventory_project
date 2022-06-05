@@ -1,4 +1,4 @@
-package com.qlw.utils;
+package com.example.utils;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import lombok.AllArgsConstructor;

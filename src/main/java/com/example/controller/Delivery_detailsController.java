@@ -3,7 +3,7 @@ package com.example.controller;
 
 import com.example.domain.Delivery_details;
 import com.example.service.IDelivery_detailsService;
-import com.qlw.utils.Result;
+import com.example.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
