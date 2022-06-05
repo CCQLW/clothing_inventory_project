@@ -32,14 +32,14 @@
 //
 //        //设置包名相关配置
 //        PackageConfig packageInfo = new PackageConfig();
-//        packageInfo.setParent("com.aaa");   //设置生成的包名，与代码所在位置不冲突，二者叠加组成完整路径
+//        packageInfo.setParent("com.qlw");   //设置生成的包名，与代码所在位置不冲突，二者叠加组成完整路径
 //        packageInfo.setEntity("domain");    //设置实体类包名
 //        packageInfo.setMapper("dao");   //设置数据层包名
 //        autoGenerator.setPackageInfo(packageInfo);
 //
 //        //策略设置
 //        StrategyConfig strategyConfig = new StrategyConfig();
-//        strategyConfig.setInclude("delivery");  //设置当前参与生成的表名，参数为可变参数
+//        strategyConfig.setInclude("delivery_order");  //设置当前参与生成的表名，参数为可变参数
 //        strategyConfig.setRestControllerStyle(true);    //设置是否启用Rest风格
 //        strategyConfig.setLogicDeleteFieldName("is_delete");  //设置逻辑删除字段名
 //        strategyConfig.setEntityLombokModel(true);  //设置是否启用lombok

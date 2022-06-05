@@ -2,8 +2,11 @@ package com.qlw.dao;
 
 import com.qlw.domain.Delivery_details;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.qlw.utils.Result;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,5 +18,4 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 public interface Delivery_detailsDao extends BaseMapper<Delivery_details> {
-
 }

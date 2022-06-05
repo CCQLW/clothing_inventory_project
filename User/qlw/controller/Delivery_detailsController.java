@@ -1,6 +1,7 @@
 package com.qlw.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qlw.domain.Delivery_details;
 import com.qlw.service.IDelivery_detailsService;
 import com.qlw.utils.Result;
@@ -33,7 +34,7 @@ public class Delivery_detailsController {
     }
 
     @PutMapping
-    public Result changeNumber(@RequestBody Delivery_details details){
+    public Result updateDelivery_details(@RequestBody Delivery_details details){
         return new Result(delivery_detailsService.updateById(details));
     }
 
@@ -45,6 +46,12 @@ public class Delivery_detailsController {
     @GetMapping("/{id}")
     public Result getDelivery_detailsById(@PathVariable Integer id){
         return new Result("success",delivery_detailsService.getById(id));
+    }
+
+    @GetMapping("/page")
+    public Result getPage(Integer current, Integer size) {
+        Page<Delivery_details> page = new Page<Delivery_details>(current, size);
+        return new Result(delivery_detailsService.page(page, null));
     }
 }
 
