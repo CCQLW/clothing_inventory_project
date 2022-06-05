@@ -32,14 +32,14 @@ public class CodeGenerator {
 
         //设置包名相关配置
         PackageConfig packageInfo = new PackageConfig();
-        packageInfo.setParent("com.Article");   //设置生成的包名，与代码所在位置不冲突，二者叠加组成完整路径
+        packageInfo.setParent("com.example");   //设置生成的包名，与代码所在位置不冲突，二者叠加组成完整路径
         packageInfo.setEntity("domain");    //设置实体类包名
         packageInfo.setMapper("dao");   //设置数据层包名
         autoGenerator.setPackageInfo(packageInfo);
 
         //策略设置
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setInclude("article_number");  //设置当前参与生成的表名，参数为可变参数
+        strategyConfig.setInclude("warehousing_detail");  //设置当前参与生成的表名，参数为可变参数
 //        strategyConfig.setTablePrefix("tbl_");  //设置数据库表的前缀名称，模块名 = 数据库表名 - 前缀名  例如： User = tbl_user - tbl_
         strategyConfig.setRestControllerStyle(true);    //设置是否启用Rest风格
 //        strategyConfig.setVersionFieldName("version");  //设置乐观锁字段名
