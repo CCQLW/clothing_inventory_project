@@ -21,8 +21,7 @@ class ClothingInventoryProjectApplicationTests {
     void testSave(){
         Article_number articleNumber = new Article_number();
         articleNumber.setTradeName("T恤");
-        articleNumber.setArticleNumber("bbbbb");
-        articleNumber.setColorNo("bbbbb");
+        articleNumber.setColorNo("red");
         articleNumber.setSize(170);
         iArticle_numberService.save(articleNumber);
     }
@@ -30,9 +29,8 @@ class ClothingInventoryProjectApplicationTests {
     @Test
     void testUpdate(){
         Article_number articleNumber = new Article_number();
-        articleNumber.setArticleNumber("DCT-blue-173");
         articleNumber.setColorNo("blue");
-        articleNumber.setId(5);
+        articleNumber.setId(8);
         iArticle_numberService.update(articleNumber);
     }
 

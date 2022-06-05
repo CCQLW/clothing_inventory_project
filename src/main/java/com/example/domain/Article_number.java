@@ -35,4 +35,43 @@ public class Article_number {
     @TableLogic(value = "0", delval = "1")
     private byte putDelete;   //是否删除
 
+    public void setArticleNumber(){
+        String strTradeName;
+        switch (tradeName){
+            case "T恤" : {
+                strTradeName = "T";
+                break;
+            }
+            case "长T" : {
+                strTradeName = "CT";
+                break;
+            }
+            case "POLO衫" : {
+                strTradeName = "PL";
+                break;
+            }
+            case "棒球衫" : {
+                strTradeName = "BQS";
+                break;
+            }
+            case "背心" : {
+                strTradeName = "BX";
+                break;
+            }
+            case "衬衫" : {
+                strTradeName = "CS";
+                break;
+            }
+            case "卫衣" : {
+                strTradeName = "WY";
+                break;
+            }
+            default:{
+                strTradeName = "ATHER";
+                break;
+            }
+        }
+        articleNumber = strTradeName + "-" + colorNo + "-" + size;
+    }
+
 }

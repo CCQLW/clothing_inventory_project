@@ -22,6 +22,7 @@ public class Article_numberServiceImpl implements IArticle_numberService {
     private Article_numberDao articleNumberDao;
 
     public boolean save(Article_number articleNumber){
+        articleNumber.setArticleNumber();
         return articleNumberDao.insert(articleNumber) > 0;
     }
 
@@ -30,6 +31,17 @@ public class Article_numberServiceImpl implements IArticle_numberService {
     }
 
     public boolean update(Article_number articleNumber){
+        Article_number articleNumber1 = articleNumberDao.selectById(articleNumber.getId());
+        if(articleNumber.getTradeName() == null){
+            articleNumber.setTradeName(articleNumber1.getTradeName());
+        }
+        if(articleNumber.getColorNo() == null){
+            articleNumber.setColorNo(articleNumber1.getColorNo());
+        }
+        if(articleNumber.getSize() == null){
+            articleNumber.setSize(articleNumber1.getSize());
+        }
+        articleNumber.setArticleNumber();
         return articleNumberDao.updateById(articleNumber) > 0;
     }
 
