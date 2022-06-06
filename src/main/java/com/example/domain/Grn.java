@@ -3,7 +3,6 @@ package com.example.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -28,7 +27,7 @@ public class Grn{
 
     private String warehouse;    //所入仓库
 
-    private LocalDate storageTime;    //入库时间
+    private Date storageTime;    //入库时间
 
     private String agent;    //经办人
 
@@ -45,6 +44,6 @@ public class Grn{
     }
 
     public void setStorageTime(){
-        storageTime  = LocalDate.now();
+        storageTime  = new Date();
     }
 }

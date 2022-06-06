@@ -33,7 +33,7 @@ public class Warehousing_detail{
 
     private Integer number;    //数量
 
-    @TableLogic
+    @TableLogic(value = "0", delval = "1")
     private byte putDelete;    //是否删除
 
 
