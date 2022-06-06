@@ -13,15 +13,21 @@ public class Result {
     public Result(){
 
     }
+
     public Result(boolean flag){
         if(flag) this.result ="success";
         else this.result = "操作失败";
     }
 
-//    public Result(Object data){
-//        this.data = data;
-//        this.result = "success";
-//    }
+    public Result(String result){
+        this.result = result;
+        this.data = null;
+    }
+
+    public Result(Object data){
+        this.data = data;
+        this.result = "success";
+    }
 
     public Result(String result,Object data){
         this.result =result;

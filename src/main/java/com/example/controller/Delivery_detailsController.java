@@ -1,11 +1,12 @@
 package com.example.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Delivery_details;
 import com.example.service.IDelivery_detailsService;
-import com.example.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.example.utils.Result;
 
 /**
  * <p>
@@ -33,7 +34,7 @@ public class Delivery_detailsController {
     }
 
     @PutMapping
-    public Result changeNumber(@RequestBody Delivery_details details){
+    public Result updateDelivery_details(@RequestBody Delivery_details details){
         return new Result(delivery_detailsService.updateById(details));
     }
 
@@ -45,6 +46,12 @@ public class Delivery_detailsController {
     @GetMapping("/{id}")
     public Result getDelivery_detailsById(@PathVariable Integer id){
         return new Result("success",delivery_detailsService.getById(id));
+    }
+
+    @GetMapping("/page")
+    public Result getPage(Integer current, Integer size) {
+        Page<Delivery_details> page = new Page<>(current, size);
+        return new Result(delivery_detailsService.page(page, null));
     }
 }
 
