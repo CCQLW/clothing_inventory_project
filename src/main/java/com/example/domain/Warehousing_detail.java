@@ -41,27 +41,11 @@ public class Warehousing_detail{
     @TableLogic(value = "0", delval = "1")
     private byte putDelete;    //是否删除
 
-    void setArticleNumber(Article_number cArticleNumber){
-        articleNumber = cArticleNumber.getArticleNumber();
-    }
-
-    void setTradeName(Article_number cArticleNumber){
-        tradeName = cArticleNumber.getTradeName();
-    }
-
-    void setColorNo(Article_number cArticleNumber){
-        colorNo = cArticleNumber.getColorNo();
-    }
-
-    void setSize(Article_number cArticleNumber){
-        size = cArticleNumber.getSize();
-    }
-
     public void setArticle(Article_number cArticleNumber){
-        setArticleNumber(cArticleNumber);
-        setTradeName(cArticleNumber);
-        setColorNo(cArticleNumber);
-        setSize(cArticleNumber);
+        setArticleNumber(cArticleNumber.getArticleNumber());
+        setTradeName(cArticleNumber.getTradeName());
+        setColorNo(cArticleNumber.getColorNo());
+        setSize(cArticleNumber.getSize());
     }
 
 }

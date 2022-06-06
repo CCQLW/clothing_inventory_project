@@ -10,6 +10,7 @@ import com.example.domain.User;
 import com.example.domain.Warehousing_detail;
 import com.example.service.IArticle_numberService;
 import com.example.service.IGrnService;
+import com.example.service.IWarehousing_detailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -103,6 +104,15 @@ class ApplicationTests {
     void testGrnGetList(){
         List<Grn> list = iGrnService.getList();
         System.out.println(list);
+    }
+
+    @Autowired
+    private IWarehousing_detailService iWarehousing_detailService;
+
+    @Test
+    void testWareGetById(){
+        Warehousing_detail warehousing_detail = iWarehousing_detailService.getById(2);
+        System.out.println(warehousing_detail);
     }
 
 }
