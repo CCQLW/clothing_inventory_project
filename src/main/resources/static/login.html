@@ -58,19 +58,17 @@
     </div>
 </div>
 <script>
-    // document.querySelector('.button.submit').addEventListener('click',signin);
-    // document.addEventListener('keydwon',function (e) {
-    //     console.log(e.key);
-    //     if (e.key == 'Enter') {
-    //         signin();
-    //     }
-    // });
-    // document.querySelector('#pass').addEventListener('keydwon',function (e) {
-    //     if (e.key == 'Enter') {
-    //         console.log(e.key);
-    //         signin();
-    //     }
-    // });
+    document.querySelector('.button.submit').addEventListener('click',signin);
+    document.addEventListener('keydwon',function (e) {
+        if (e.key === 'Enter') {
+            signin();
+        }
+    });
+    document.querySelector('#pass').addEventListener('keydwon',function (e) {
+        if (e.key === 'Enter') {
+            signin();
+        }
+    });
 
 </script>
 </body>
