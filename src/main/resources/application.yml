@@ -12,6 +12,8 @@ spring:
   #  关闭spring Boot 的logo
   main:
     banner-mode: off
+  mvc:
+    static-path-pattern: /static/**
 
 mybatis-plus:
   #  关闭spring mybatis 的logo

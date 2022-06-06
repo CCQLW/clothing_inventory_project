@@ -58,7 +58,12 @@ public class UserControllerResult {
     }
 
     @PostMapping("/login")
-    public Result login(String username, String passwd) {
+//    json 格式传
+    public Result login(@RequestBody User userLogin) {
+//    application/x-www-form-urlencoded 格式传参
+//    public Result login(@RequestParam(value = "username") String username,@RequestParam(value = "passwd") String passwd) {
+        String username = userLogin.getUsername();
+        String passwd = userLogin.getPasswd();
         User user = userService.getByUsernameUser(username);
         if (user == null) {
             return new Result("用户不存在");
