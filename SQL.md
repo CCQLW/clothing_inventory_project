@@ -2,18 +2,6 @@
 -- CREATE DATABASE clothing_inventory;
 -- use clothing_inventory
 
-CREATE TABLE warehousing_detail
-(
-    id INT auto_increment comment '序号',
-    article_number VARCHAR(50) NOT NULL COMMENT '货号',
-    trade_name VARCHAR(50) NOT NULL COMMENT '商品名',
-    color_no VARCHAR(50) NOT NULL COMMENT '色号',
-    size INT NOT NULL COMMENT '尺码',
-    number INT NOT NULL COMMENT '数量',
-    put_delete BINARY NOT NULL COMMENT '是否删除',
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE GRN
 (
     id INT auto_increment COMMENT '序号',
@@ -37,6 +25,22 @@ CREATE TABLE article_number
     size INT NOT NULL COMMENT '尺码',
     put_delete BINARY NOT NULL COMMENT '是否删除',
     PRIMARY KEY (id)
+);
+
+CREATE TABLE warehousing_detail
+(
+    id INT auto_increment comment '序号',
+    grn_id INT COMMENT '入库单序号',
+    article_id INT COMMENT '货号序号',
+    article_number VARCHAR(50) NOT NULL COMMENT '货号',
+    trade_name VARCHAR(50) NOT NULL COMMENT '商品名',
+    color_no VARCHAR(50) NOT NULL COMMENT '色号',
+    size INT NOT NULL COMMENT '尺码',
+    number INT NOT NULL COMMENT '数量',
+    put_delete BINARY NOT NULL COMMENT '是否删除',
+    PRIMARY KEY (id),
+    FOREIGN KEY (article_id) REFERENCES article_number(id),
+    FOREIGN KEY (grn_id) REFERENCES grn(id)
 );
 ```
 
