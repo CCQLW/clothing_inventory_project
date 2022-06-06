@@ -17,6 +17,7 @@ public class Result {
     public Result(boolean flag){
         if(flag) this.result ="success";
         else this.result = "操作失败";
+        this.data = null;
     }
 
     public Result(String result){

@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-class ClothingInventoryProjectApplicationTests {
+class ApplicationTests {
 
     @Autowired
     private IArticle_numberService iArticle_numberService;
