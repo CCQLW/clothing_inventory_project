@@ -85,6 +85,9 @@
                         <i class="fa fa-circle-o"></i>出库管理
                     </a>
                 </li>
+                <li>
+                    <i class ="aaa" style="color: white">牛逼</i>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -96,5 +99,29 @@
                 frameborder="0" src=""></iframe>
     </div>
 </div>
+<script type="text/javascript" >
+
+    // huo = document.querySelectorAll(".fa.fa-circle-o")[1]
+    // huo.addEventListener("click",function (){
+    //
+    // })
+    a =document.querySelector('.aaa');
+    function ce(){
+        $.ajax({
+            type:'GET',
+            dataType :'json',
+            url : '/user/username',
+            data:{
+                "username":"q"
+            },
+            contentType :'application/x-www-form-urlencoded',
+            success(data){
+                console.log(data)
+                $("#s1").html(data);
+            }
+        })
+    }
+    a.addEventListener('click',ce);
+</script>
 </body>
 </html>
