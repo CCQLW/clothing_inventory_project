@@ -1,22 +1,28 @@
 function signin() {
-    document.querySelector('.button.submit').addEventListener('click', function () {
         var username = document.querySelector('#user').value;
         var passwd = document.querySelector('#pass').value;
+        if (username === ''||passwd === '') {
+            alert('用户名或密码不能为空');
+            // console.log('用户名或密码不能为空');
+            return ;
+        }
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/user/login');
+        xhr.open('POST', '/user/login',false);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function () {
             var resp = JSON.parse(xhr.responseText);
             // console.log(resp);
             if (resp.result === "success") {
-                console.log(resp.data);
+                console.log(resp.result);
                 window.location.href = '/static/html/index.html';
+                return;
             } else {
-                console.log(resp.data);
+                // console.log(resp.result);
+                alert(resp.result);
+                return;
             }
         };
         xhr.send(JSON.stringify({"username": username, "passwd": passwd}));
-    });
 }
 
 function login(){

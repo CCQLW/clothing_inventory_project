@@ -5,14 +5,12 @@
     <title>登录界面</title>
     <link rel="Stylesheet " href="/static/css/login.css">
     <script type="text/javascript" src="/static/js/login.js"></script>
-    <link rel="stylesheet" href="bootstrap-4.6.1-dist/css/bootstrap.min.css">
 </head>
 <body>
-<img src="image/1.jpg" class="img-fluid-my" alt="...">
 <div class="login-wrap">
     <div class="login-html">
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">登录</label>
-        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">暂无权限</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
         <div class="login-form">
             <div class="sign-in-htm">
                 <div class="group">
@@ -62,11 +60,11 @@
 <script>
     login_in =document.querySelector('.button.submit')
     login_in.addEventListener('click', signin);
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            signin();
-        }
-    });
+    // document.addEventListener('keydown', function (e) {
+    //     if (e.key === 'Enter') {
+    //         signin();
+    //     }
+    // });
     passwd = document.querySelector('#pass')
     passwd.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
