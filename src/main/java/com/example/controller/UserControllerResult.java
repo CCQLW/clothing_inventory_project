@@ -1,6 +1,9 @@
 package com.example.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.User;
 import com.example.service.IUserService;
 import com.example.utils.Result;
@@ -119,6 +122,12 @@ public class UserControllerResult {
             }
         } else if (user.getId() != null) return new Result(userService.updateById(user));
         else return new Result("用户名与id不能同时为空");
+    }
+
+    @GetMapping("/page")
+    public Result page(Integer page, Integer size) {
+        Page<User> userPage=new Page<>(page,size);
+        return new Result("success", userService.page(userPage));
     }
 
 //    @Override  如果报错证明没有覆盖 springboot2-p40 8分23
