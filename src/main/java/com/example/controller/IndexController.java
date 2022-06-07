@@ -9,4 +9,7 @@ public class IndexController {
     public String hello(){
         return "forward:/login.html";
     }
+
+    @RequestMapping("/index")
+    public String index(){return "forward:/html/home.html";}
 }
