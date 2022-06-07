@@ -51,7 +51,7 @@ public class GrnController {
         return new Result(code,grn,msg);
     }
 
-    @GetMapping("getlist")
+    @GetMapping("getList")
     public Result getAll() {
         List<Grn> grnList = iGrnService.getList();
         Integer code = grnList != null ? Code.GET_OK : Code.GET_ERR;
