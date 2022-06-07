@@ -59,7 +59,7 @@ public class UserControllerResult {
 
     @PostMapping("/login")
 //    json 格式传
-    public Result login(HttpServletRequest request , @RequestBody User userLogin) {
+    public Result login(HttpServletRequest request, @RequestBody User userLogin) {
 //    application/x-www-form-urlencoded 格式传参
 //    public Result login(@RequestParam(value = "username") String username,@RequestParam(value = "passwd") String passwd) {
         String username = userLogin.getUsername();
@@ -70,8 +70,8 @@ public class UserControllerResult {
         } else {
             if (user.getPasswd().equals(passwd)) {
                 HttpSession session = request.getSession();
-                session.setAttribute("username",username);
-                session.setAttribute("passwd",passwd);
+                session.setAttribute("username", username);
+                session.setAttribute("passwd", passwd);
                 return new Result("success", user);
             } else {
                 return new Result("密码错误");
@@ -85,11 +85,11 @@ public class UserControllerResult {
     @GetMapping("/logout")
     public Result logout(String username) {
         String usernameLogout = request.getSession().getAttribute("username").toString();
-        if(usernameLogout.equals(username)) {
+        if (usernameLogout.equals(username)) {
             request.getSession().removeAttribute("username");
             request.getSession().removeAttribute("passwd");
             return new Result("success");
-        }else {
+        } else {
             return new Result("fail");
         }
     }
@@ -132,5 +132,5 @@ public class UserControllerResult {
 //        return userDao.selectById(id);
 //    }
 
-    }
+}
 
