@@ -10,8 +10,7 @@ function signin() {
             // console.log(resp);
             if (resp.result === "success") {
                 console.log(resp.data);
-                // alert("ccc")
-                // window.location.href = 'www.baidu.com';
+                window.location.href = '/static/html/index.html';
             } else {
                 console.log(resp.data);
             }
@@ -40,7 +39,7 @@ function login(){
             if (resp.result === 'success') {
                 console.log(resp.data);
                 // alert('登录成功');
-                // window.location.href = 'http://tu.everycoin.top/';
+                // window.location.href = 'index.html';
             } else {
                 console.log(resp.result);
                 // alert('用户名或密码错误');
@@ -48,3 +47,4 @@ function login(){
         }
     }
 }
+

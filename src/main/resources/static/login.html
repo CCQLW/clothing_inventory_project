@@ -5,8 +5,10 @@
     <title>登录界面</title>
     <link rel="Stylesheet " href="/static/css/login.css">
     <script type="text/javascript" src="/static/js/login.js"></script>
+    <link rel="stylesheet" href="bootstrap-4.6.1-dist/css/bootstrap.min.css">
 </head>
 <body>
+<img src="image/1.jpg" class="img-fluid-my" alt="...">
 <div class="login-wrap">
     <div class="login-html">
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">登录</label>
@@ -58,15 +60,25 @@
     </div>
 </div>
 <script>
-    document.querySelector('.button.submit').addEventListener('click',signin);
-    document.addEventListener('keydwon',function (e) {
+    login_in =document.querySelector('.button.submit')
+    login_in.addEventListener('click', signin);
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
             signin();
         }
     });
-    document.querySelector('#pass').addEventListener('keydwon',function (e) {
+    passwd = document.querySelector('#pass')
+    passwd.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') {
-            signin();
+            login_in.click();
+        }
+    });
+
+    username = document.querySelector('#user');
+    username.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            console.log('enter');
+            passwd.focus();
         }
     });
 
