@@ -57,10 +57,9 @@ public class Article_numberServiceImpl implements IArticle_numberService {
         return articleNumberDao.selectList(null);
     }
 
-    public Page<Article_number> getPage(Integer current, Integer size, Integer id){
+    public Page<Article_number> getPage(Integer current, Integer size){
         LambdaQueryWrapper<Article_number> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Article_number::getId, id);
         Page<Article_number> page = new Page<>(current, size);
-        return articleNumberDao.selectPage(page, queryWrapper);
+        return articleNumberDao.selectPage(page, null);
     }
 }
