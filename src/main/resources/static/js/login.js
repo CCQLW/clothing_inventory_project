@@ -14,7 +14,7 @@ function signin() {
             // console.log(resp);
             if (resp.result === "success") {
                 console.log(resp.result);
-                window.location.href = '/static/html/index.html';
+                window.location.href = '/html/index.html';
                 return;
             } else {
                 // console.log(resp.result);

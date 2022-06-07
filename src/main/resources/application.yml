@@ -13,7 +13,10 @@ spring:
   main:
     banner-mode: off
   mvc:
-    static-path-pattern: /static/**
+    view:
+      prefix: /
+      suffix: .html
+#    static-path-pattern: /static/**
 
 mybatis-plus:
   #  关闭spring mybatis 的logo
