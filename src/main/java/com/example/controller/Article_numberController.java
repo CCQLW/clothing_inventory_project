@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Article_number;
 import com.example.service.IArticle_numberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,25 +23,25 @@ public class Article_numberController {
     @Autowired
     private IArticle_numberService iArticle_numberService;
 
-    @PostMapping
+    @PostMapping("/add")
     public Result save(@RequestBody Article_number articleNumber) {
         boolean flag = iArticle_numberService.save(articleNumber);
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public Result update(@RequestBody Article_number articleNumber) {
         boolean flag = iArticle_numberService.update(articleNumber);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean flag = iArticle_numberService.delete(id);
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public Result getById(@PathVariable Integer id) {
         Article_number articleNumber = iArticle_numberService.getById(id);
         Integer code = articleNumber != null ? Code.GET_OK : Code.GET_ERR;
@@ -48,12 +49,20 @@ public class Article_numberController {
         return new Result(code,articleNumber,msg);
     }
 
-    @GetMapping
+    @GetMapping("getAll")
     public Result getAll() {
         List<Article_number> articleNumberList = iArticle_numberService.getList();
         Integer code = articleNumberList != null ? Code.GET_OK : Code.GET_ERR;
         String msg = articleNumberList != null ? "" : "数据查询失败，请重试！";
         return new Result(code,articleNumberList,msg);
+    }
+
+    @GetMapping("getPage")
+    public Result getPage(Integer current, Integer size, Integer id){
+        Page<Article_number> article_numberPage = iArticle_numberService.getPage(current, size, id);
+        Integer code = article_numberPage != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = article_numberPage != null ? "" : "数据查询失败，请重试！";
+        return new Result(code, article_numberPage, msg);
     }
 }
 

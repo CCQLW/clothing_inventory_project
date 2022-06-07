@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Article_number;
 
 import java.util.List;
@@ -27,4 +28,7 @@ public interface IArticle_numberService{
 
     //查询所有
     public List<Article_number> getList();
+
+    //分页查询
+    public Page<Article_number> getPage(Integer current, Integer size, Integer id);
 }

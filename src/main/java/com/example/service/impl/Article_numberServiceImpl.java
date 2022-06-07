@@ -1,8 +1,12 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Article_number;
 import com.example.dao.Article_numberDao;
+import com.example.domain.Delivery_details;
 import com.example.service.IArticle_numberService;
+import com.example.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +55,12 @@ public class Article_numberServiceImpl implements IArticle_numberService {
 
     public List<Article_number> getList(){
         return articleNumberDao.selectList(null);
+    }
+
+    public Page<Article_number> getPage(Integer current, Integer size, Integer id){
+        LambdaQueryWrapper<Article_number> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Article_number::getId, id);
+        Page<Article_number> page = new Page<>(current, size);
+        return articleNumberDao.selectPage(page, queryWrapper);
     }
 }
