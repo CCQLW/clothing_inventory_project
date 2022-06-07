@@ -30,7 +30,7 @@ public class Delivery_details implements Serializable {
     //    出库订单序号
     private Integer orderId;
     //    货号
-    private String articleNumber;
+    private Integer articleId;
     //    商品名
     private String tradeName;
     //    色号

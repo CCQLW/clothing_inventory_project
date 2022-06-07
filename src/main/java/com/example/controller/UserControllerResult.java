@@ -1,14 +1,14 @@
 package com.example.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.example.domain.User;
 import com.example.service.IUserService;
 import com.example.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -59,7 +59,7 @@ public class UserControllerResult {
 
     @PostMapping("/login")
 //    json 格式传
-    public Result login(@RequestBody User userLogin) {
+    public Result login(HttpServletRequest request , @RequestBody User userLogin) {
 //    application/x-www-form-urlencoded 格式传参
 //    public Result login(@RequestParam(value = "username") String username,@RequestParam(value = "passwd") String passwd) {
         String username = userLogin.getUsername();
@@ -69,10 +69,28 @@ public class UserControllerResult {
             return new Result("用户不存在");
         } else {
             if (user.getPasswd().equals(passwd)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("username",username);
+                session.setAttribute("passwd",passwd);
                 return new Result("success", user);
             } else {
                 return new Result("密码错误");
             }
+        }
+    }
+
+    @Autowired
+    HttpServletRequest request;   //首先可以通过注解的方式  获取一个 request
+
+    @GetMapping("/logout")
+    public Result logout(String username) {
+        String usernameLogout = request.getSession().getAttribute("username").toString();
+        if(usernameLogout.equals(username)) {
+            request.getSession().removeAttribute("username");
+            request.getSession().removeAttribute("passwd");
+            return new Result("success");
+        }else {
+            return new Result("fail");
         }
     }
 
