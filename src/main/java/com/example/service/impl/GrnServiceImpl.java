@@ -1,6 +1,9 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dao.GrnDao;
+import com.example.domain.Article_number;
 import com.example.domain.Grn;
 import com.example.service.IGrnService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +50,11 @@ public class GrnServiceImpl implements IGrnService {
     //查询所有
     public List<Grn> getList(){
         return grnDao.selectList(null);
+    }
+
+    //分页查询
+    public Page<Grn> getPage(Integer current, Integer size){
+        Page<Grn> page = new Page<>(current, size);
+        return grnDao.selectPage(page, null);
     }
 }

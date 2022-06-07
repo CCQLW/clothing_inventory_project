@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Article_number;
 import com.example.domain.Grn;
 
@@ -28,4 +29,7 @@ public interface IGrnService{
 
     //查询所有
     public List<Grn> getList();
+
+    //分页查询
+    public Page<Grn> getPage(Integer current, Integer size);
 }

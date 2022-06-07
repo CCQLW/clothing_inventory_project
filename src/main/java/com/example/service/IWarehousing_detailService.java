@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Grn;
 import com.example.domain.Warehousing_detail;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -29,4 +30,7 @@ public interface IWarehousing_detailService{
 
     //查询所有
     public List<Warehousing_detail> getList();
+
+    //分页查询
+    public Page<Warehousing_detail> getPage(Integer current, Integer size);
 }
