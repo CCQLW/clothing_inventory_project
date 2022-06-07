@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Article_number;
 import com.example.domain.Grn;
 import com.example.service.IArticle_numberService;
@@ -24,25 +25,25 @@ public class GrnController {
     @Autowired
     private IGrnService iGrnService;
 
-    @PostMapping
+    @PostMapping("add")
     public Result save(@RequestBody Grn grn) {
         boolean flag = iGrnService.save(grn);
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
-    @PutMapping
+    @PutMapping("update")
     public Result update(@RequestBody Grn grn) {
         boolean flag = iGrnService.update(grn);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean flag = iGrnService.delete(id);
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("getById/{id}")
     public Result getById(@PathVariable Integer id) {
         Grn grn = iGrnService.getById(id);
         Integer code = grn != null ? Code.GET_OK : Code.GET_ERR;
@@ -50,12 +51,20 @@ public class GrnController {
         return new Result(code,grn,msg);
     }
 
-    @GetMapping
+    @GetMapping("getlist")
     public Result getAll() {
         List<Grn> grnList = iGrnService.getList();
         Integer code = grnList != null ? Code.GET_OK : Code.GET_ERR;
         String msg = grnList != null ? "" : "数据查询失败，请重试！";
         return new Result(code,grnList,msg);
+    }
+
+    @GetMapping("getPage")
+    public Result getPage(Integer current, Integer size){
+        Page<Grn> grnPage = iGrnService.getPage(current, size);
+        Integer code = grnPage != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = grnPage != null ? "" : "数据查询失败，请重试！";
+        return new Result(code, grnPage, msg);
     }
 }
 

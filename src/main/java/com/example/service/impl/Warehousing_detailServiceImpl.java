@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dao.Article_numberDao;
 import com.example.domain.Grn;
 import com.example.domain.Warehousing_detail;
@@ -53,5 +54,11 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
     //查询所有
     public List<Warehousing_detail> getList(){
         return warehousing_detailDao.selectList(null);
+    }
+
+    //分页查询
+    public Page<Warehousing_detail> getPage(Integer current, Integer size){
+        Page<Warehousing_detail> warehousing_detailPage = new Page<>(current, size);
+        return warehousing_detailDao.selectPage(warehousing_detailPage, null);
     }
 }
