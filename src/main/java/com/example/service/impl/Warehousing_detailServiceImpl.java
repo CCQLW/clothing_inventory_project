@@ -1,7 +1,9 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dao.Article_numberDao;
+import com.example.domain.Delivery_details;
 import com.example.domain.Grn;
 import com.example.domain.Warehousing_detail;
 import com.example.dao.Warehousing_detailDao;
@@ -60,5 +62,13 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
     public Page<Warehousing_detail> getPage(Integer current, Integer size){
         Page<Warehousing_detail> warehousing_detailPage = new Page<>(current, size);
         return warehousing_detailDao.selectPage(warehousing_detailPage, null);
+    }
+
+    //根据入库单序号分页查询
+    public Page<Warehousing_detail> getByGrnIdPage(Integer current, Integer size, Integer id){
+        LambdaQueryWrapper<Warehousing_detail> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Warehousing_detail::getGrnId, id);
+        Page<Warehousing_detail> warehousing_detailPage = new Page<>(current, size);
+        return warehousing_detailDao.selectPage(warehousing_detailPage, queryWrapper);
     }
 }

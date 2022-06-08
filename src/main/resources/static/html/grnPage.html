@@ -16,6 +16,7 @@
     <th scope="col">入库时间</th>
     <th scope="col">经办人</th>
     <th scope="col">来源</th>
+    <th scope="col">操作</th>
   </tr>
   </thead>
   <tbody id="tbody">
@@ -76,14 +77,13 @@
           for (var i = 0; i < d.length; i++) {
             html += "<tr>";
             html += "<td>" + (i + 1) + "</td>";
-            html += "<td>" + d[i].receiptNumber + "</td>";
+            // html += "<td>" + d[i].receiptNumber + "</td>";
+            html += "<td><a class=\"btn btn-primary btn-lg active\" role=\"button\" " + "id=" + d[i].grnId + ">" + d[i].receiptNumber + "</a></td>";
             html += "<td>" + d[i].warehouse + "</td>";
             html += "<td>" + fmtDateTime(d[i].storageTime) + "</td>";
-            // html += "<td>" + d[i].storageTime + "</td>";
             html += "<td>" + d[i].agent + "</td>";
             html += "<td>" + d[i].source + "</td>";
             html += "<td><button type=\"button\" class=\"btn-danger\" "+ "id=" + d[i].id + ">删除</button></td>";
-            // html += "<td><a href='/user/delete?id=" + d[i].id + "'>删除</a></td>";
             html += "</tr>";
           }
           $("#tbody").html(html);
@@ -148,6 +148,10 @@
         }
       }
     });
+  });
+  $("#tbody").on("click", "a", function () {
+    var id = $(this).attr("id");
+    window.location.href = '../html/warehousingDatailPate.html';
   });
 </script>
 </body>

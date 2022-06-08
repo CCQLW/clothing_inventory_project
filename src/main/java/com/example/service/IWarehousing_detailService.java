@@ -33,4 +33,7 @@ public interface IWarehousing_detailService{
 
     //分页查询
     public Page<Warehousing_detail> getPage(Integer current, Integer size);
+
+    //根据入库单序号分页查询
+    public Page<Warehousing_detail> getByGrnIdPage(Integer current, Integer size, Integer id);
 }

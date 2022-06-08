@@ -66,5 +66,13 @@ public class Warehousing_detailController {
         String msg = warehousing_detailPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, warehousing_detailPage, msg);
     }
+
+    @GetMapping("getByGrnIdPage")
+    public Result getByGrnIdPage(Integer page, Integer size, Integer id){
+        Page<Warehousing_detail> warehousing_detailPage = iWarehousing_detailService.getByGrnIdPage(page, size, id);
+        Integer code = warehousing_detailPage != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = warehousing_detailPage != null ? "" : "数据查询失败，请重试！";
+        return new Result(code, warehousing_detailPage, msg);
+    }
 }
 
