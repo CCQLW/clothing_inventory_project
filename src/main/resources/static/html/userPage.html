@@ -7,6 +7,8 @@
     <script src="../js/jquery.min.js"></script>
 </head>
 <body>
+<button type="button" class="btn btn-info">新增</button>
+<button type="button" class="btn btn-success">修改</button>
 <table class="table table-dark table-striped table-bordered">
     <thead>
     <tr>
@@ -21,7 +23,7 @@
 </table>
 
 <nav aria-label="Page navigation example" style="float: right">
-    <ul class="pagination">
+    <ul class="pagination pagination-lg">
         <li class="page-item" id="pre">
             <a class="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
@@ -37,27 +39,29 @@
     </ul>
 </nav>
 
-<div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+<div class="position-fixed bottom-0 right-0 p-3" style="z-index: 10; right: 0; bottom: 0;">
     <!--    class hide改成show 显示-->
     <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
         <div class="toast-header">
-            <img src="..." class="rounded mr-2" alt="...">
-            <strong class="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<!--            <img src="../image/beijing.jpg" class="rounded mr-2" alt="...">-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+            <strong class="mr-auto">删除成功</strong>
+            <small></small>
+<!--            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
         </div>
         <div class="toast-body">
-            Hello, world! This is a toast message.
+<!--            Hello, world! This is a toast message.-->
         </div>
     </div>
 </div>
 
+
 <script>
-
-
-
     function page(page, size) {
         var other;
         $.get({
@@ -86,6 +90,9 @@
                     localStorage.setItem('size', other.size);
                     localStorage.setItem('current', other.current);
                     localStorage.setItem('total', other.total);
+                    // cookie也可以存储和取出
+                    // document.cookie = "username=zhangsan";
+
                     // localStorage.setItem('other', other);
                 }
             }
@@ -130,12 +137,21 @@
             type: "DELETE", //请求方式
             success: function (data) {
                 if (data.result === "success") {
-                    alert("删除成功");
+                    // alert("删除成功");
+                    notification("删除成功");
                     page(1, 5);
                 }
             }
         });
     });
+
+    function notification() {
+        $('#liveToast').removeClass('hide').addClass('show');
+        //    几秒后消失
+        setTimeout(function () {
+            $('#liveToast').removeClass('show').addClass('hide');
+        }, 5000);
+    }
 </script>
 </body>
 </html>

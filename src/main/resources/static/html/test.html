@@ -26,22 +26,14 @@
     </div>
 </div>
 
-<script>
-        // $('button').click(function () {
-        //     // $('#liveToast').addClass('showing');
-        //     $('#liveToast').removeClass('hide').addClass('showing');
-        // });
-
-        $('button').click(function () {
-            $('#liveToast').removeClass('hide').addClass('show');
-            //    几秒后消失
-            setTimeout(function () {
-                $('#liveToast').removeClass('show').addClass('hide');
-            }, 2000);
-        });
-
-
-
-</script>
 </body>
+<script>
+    $('button').click(function () {
+        $('#liveToast').removeClass('hide').addClass('show');
+        //    几秒后消失
+        setTimeout(function () {
+            $('#liveToast').removeClass('show').addClass('hide');
+        }, 2000);
+    });
+</script>
 </html>

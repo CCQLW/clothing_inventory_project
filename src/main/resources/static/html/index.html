@@ -156,28 +156,9 @@
     </div>
 </div>
 <script type="text/javascript" >
-
-    // huo = document.querySelectorAll(".fa.fa-circle-o")[1]
-    // huo.addEventListener("click",function (){
-    //
-    // })
-    a =document.querySelector('.aaa');
-    function ce(){
-        $.ajax({
-            type:'GET',
-            dataType :'json',
-            url : '/user/username',
-            data:{
-                "username":"q"
-            },
-            contentType :'application/x-www-form-urlencoded',
-            success(data){
-                console.log(data)
-                $("#s1").html(data);
-            }
-        })
+    window.onload = function(){
+        console.log(sessionStorage.getItem("userid"));
     }
-    a.addEventListener('click',ce);
 </script>
 </body>
 </html>
