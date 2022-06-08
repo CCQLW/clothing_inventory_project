@@ -130,7 +130,7 @@
         var id = $(this).attr("id");
         // console.log(id);
         $.ajax({
-            url: "/warehousing_detail" + id, //请求地址
+            url: "/warehousing_detail/delete/" + id, //请求地址
             type: "DELETE", //请求方式
             success: function (data) {
                 if (data.code === 20021) {

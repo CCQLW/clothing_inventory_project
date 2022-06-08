@@ -25,25 +25,25 @@ public class Warehousing_detailController {
     @Autowired
     private IWarehousing_detailService iWarehousing_detailService;
 
-    @PostMapping
+    @PostMapping("/save")
     public Result save(@RequestBody Warehousing_detail warehousing_detail) {
         boolean flag = iWarehousing_detailService.save(warehousing_detail);
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public Result update(@RequestBody Warehousing_detail warehousing_detail) {
         boolean flag = iWarehousing_detailService.update(warehousing_detail);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean flag = iWarehousing_detailService.delete(id);
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("getById/{id}")
     public Result getById(@PathVariable Integer id) {
         Warehousing_detail warehousing_detail = iWarehousing_detailService.getById(id);
         Integer code = warehousing_detail != null ? Code.GET_OK : Code.GET_ERR;
@@ -51,7 +51,7 @@ public class Warehousing_detailController {
         return new Result(code,warehousing_detail,msg);
     }
 
-    @GetMapping
+    @GetMapping("getAll")
     public Result getAll() {
         List<Warehousing_detail> warehousingDetailList = iWarehousing_detailService.getList();
         Integer code = warehousingDetailList != null ? Code.GET_OK : Code.GET_ERR;
