@@ -58,8 +58,8 @@ public class Article_numberController {
     }
 
     @GetMapping("getPage")
-    public Result getPage(Integer current, Integer size){
-        Page<Article_number> article_numberPage = iArticle_numberService.getPage(current, size);
+    public Result getPage(Integer page, Integer size){
+        Page<Article_number> article_numberPage = iArticle_numberService.getPage(page, size);
         Integer code = article_numberPage != null ? Code.GET_OK : Code.GET_ERR;
         String msg = article_numberPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, article_numberPage, msg);

@@ -30,5 +30,5 @@ public interface IArticle_numberService{
     public List<Article_number> getList();
 
     //分页查询
-    public Page<Article_number> getPage(Integer current, Integer size);
+    public Page<Article_number> getPage(Integer page, Integer size);
 }
