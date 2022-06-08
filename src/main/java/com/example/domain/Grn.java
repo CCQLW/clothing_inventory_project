@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
@@ -36,14 +37,15 @@ public class Grn{
     @TableLogic(value = "0", delval = "1")
     private byte putDelete;    //是否删除
 
+    @TableField(exist = false)
+    private Date date = new Date();
 
     public void setReceiptNumber(){
-        Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         receiptNumber = "JP-QLW-" + df.format(date);
     }
 
     public void setStorageTime(){
-        storageTime  = new Date();
+        storageTime  = date;
     }
 }

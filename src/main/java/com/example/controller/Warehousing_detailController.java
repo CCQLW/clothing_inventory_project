@@ -60,8 +60,8 @@ public class Warehousing_detailController {
     }
 
     @GetMapping("getPage")
-    public Result getPage(Integer current, Integer size){
-        Page<Warehousing_detail> warehousing_detailPage = iWarehousing_detailService.getPage(current, size);
+    public Result getPage(Integer page, Integer size){
+        Page<Warehousing_detail> warehousing_detailPage = iWarehousing_detailService.getPage(page, size);
         Integer code = warehousing_detailPage != null ? Code.GET_OK : Code.GET_ERR;
         String msg = warehousing_detailPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, warehousing_detailPage, msg);
