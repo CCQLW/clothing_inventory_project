@@ -111,12 +111,12 @@
                     <li>
                         <br/>
                         <a>
-                            <span class="hidden-xs" >张三</span>
+                            <span class="hidden-xs" style="cursor:pointer">张三</span>
                         </a>
                     </li>
                     <li class="dropdown user user-menu">
                         <br/>
-                        <a class="logout">
+                        <a class="logout" style="cursor:pointer">
                             注销
                         </a>
                     </li>
@@ -158,6 +158,22 @@
 <script type="text/javascript" >
     window.onload = function(){
         console.log(sessionStorage.getItem("userid"));
+        getUsernameById();
+    }
+    $(".logout").click(function(){
+        sessionStorage.removeItem("userid");
+        window.location.href = "/";
+    });
+    $(".hidden-xs").click(function(){
+        $(".hidden-xs").text();
+    });
+    function getUsernameById() {
+        $.get({
+            url: "/user/id/"+sessionStorage.getItem("userid"),
+            success: function (data) {
+                $(".hidden-xs").text(data.data.username);
+            }
+        });
     }
 </script>
 </body>
