@@ -23,7 +23,7 @@ public class Article_numberController {
     @Autowired
     private IArticle_numberService iArticle_numberService;
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public Result save(@RequestBody Article_number articleNumber) {
         boolean flag = iArticle_numberService.save(articleNumber);
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);
