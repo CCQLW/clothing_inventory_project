@@ -130,6 +130,16 @@ public class UserControllerResult {
         return new Result("success", userService.page(userPage));
     }
 
+
+    @GetMapping("/fuzzy")
+    public Result fuzzy(User user, Integer page, Integer size) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(user.getUsername()!=null,User::getUsername, user.getUsername());
+        queryWrapper.eq(user.getAuthority()!=null,User::getAuthority, user.getAuthority());
+        Page<User> pages = new Page<>(page, size);
+        return new Result("success", userService.page(pages, queryWrapper));
+    }
+
 //    @Override  如果报错证明没有覆盖 springboot2-p40 8分23
 //    @GetMapping
 //    public List<User> getall(){

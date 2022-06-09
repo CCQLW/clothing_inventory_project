@@ -9,33 +9,25 @@
     <script type="text/javascript" src="../js/bootstrap.js"></script>
 </head>
 <body>
-<!--<button type="button" class="btn btn-info">新增</button>-->
-<!--<button type="button" class="btn btn-success">修改</button>-->
 <header>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
-                        货号：
-                        <input type="text" class="form-control" placeholder="货号">
+                        用户名：
+                        <input type="text" class="form-control" placeholder="用户名" id  = "findusername">
                     </div>
                     <div class="form-group">
-                        货品名称：
-                        <input type="text" class="form-control" placeholder="货品名称">
+                        权限：
+                        <input type="text" class="form-control" placeholder="权限" id = "quanxian">
                     </div>
-                    <div class="form-group">
-                        色号：
-                        <input type="text" class="form-control" placeholder="色号">
-                    </div>
-                    <div class="form-group">
-                        尺码：
-                        <input type="text" class="form-control" placeholder="尺码">
-                    </div>
-                    <button type="submit" class="btn btn-default">搜索</button>
+                    <button type="submit" class="btn btn-default" id="find">搜索</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><button type="button" class="btn btn-success">新增</button> </li>
+                    <li>
+                        <button type="button" class="btn btn-success">新增</button>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -75,25 +67,40 @@
     <!--    class hide改成show 显示-->
     <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
         <div class="toast-header">
-<!--            <img src="../image/beijing.jpg" class="rounded mr-2" alt="...">-->
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <!--            <img src="../image/beijing.jpg" class="rounded mr-2" alt="...">-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                 viewBox="0 0 16 16">
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                <path fill-rule="evenodd"
+                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
             </svg>
             <strong class="mr-auto">删除成功</strong>
             <small></small>
-<!--            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--            </button>-->
+            <!--            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
+            <!--                <span aria-hidden="true">&times;</span>-->
+            <!--            </button>-->
         </div>
         <div class="toast-body">
-<!--            Hello, world! This is a toast message.-->
+            <!--            Hello, world! This is a toast message.-->
         </div>
     </div>
 </div>
 
 
 <script>
+    var MAXPAGESIZE = 5;
+
+    function Pagination() {
+        var pages = localStorage.getItem('pages');
+        var size = localStorage.getItem('size');
+        // var line = ' <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li> ';
+        var line = "";
+        for (var i = 1; i <= pages; i++) {
+            line += '<li class="page-item" ><a class="page-link" href="#" onclick="page(' + i + ',' + size + ')" id="page' + i + '">' + i + '</a></li>';
+        }
+        $("#pre").after(line);
+    }
+
     function page(page, size) {
         var other;
         $.get({
@@ -112,8 +119,13 @@
                         html += "<tr>";
                         html += "<td>" + (i + 1) + "</td>";
                         html += "<td>" + d[i].username + "</td>";
-                        html += "<td>" + d[i].authority + "</td>";
-                        html += "<td><button type=\"button\" class=\"btn-danger\" "+ "id=" + d[i].id + ">删除</button></td>";
+                        if (d[i].authority === 1) {
+                            html += "<td>超级管理员</td>";
+                        } else {
+                            html += "<td>仓库管理员</td>";
+                        }
+                        // html += "<td>" + d[i].authority + "</td>";
+                        html += "<td><button type=\"button\" class=\"btn-danger\" " + "id=" + d[i].id + ">删除</button></td>";
                         // html += "<td><a href='/user/delete?id=" + d[i].id + "'>删除</a></td>";
                         html += "</tr>";
                     }
@@ -126,6 +138,7 @@
                     // document.cookie = "username=zhangsan";
 
                     // localStorage.setItem('other', other);
+                    // Pagination();
                 }
             }
         });
@@ -134,16 +147,12 @@
     }
 
     window.onload = function () {
-        page(1, 5);
-        var pages = localStorage.getItem('pages');
-        var size = localStorage.getItem('size');
-        // var line = ' <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li> ';
-        var line = "";
-        for (var i = 1; i <= pages; i++) {
-            line += '<li class="page-item"><a class="page-link" href="#" onclick="page(' + i + ',' + size + ')" id="page' + i + '">' + i + '</a></li>';
-        }
-        $("#pre").after(line);
-    }
+        page(1, MAXPAGESIZE);
+        Pagination()
+        // console.log($("#tbody > tr >td").eq(1).text());
+        // console.log($("#tbody > td").eq(2).text());
+    };
+
     $("#pre").click(function () {
         var current = localStorage.getItem('current');
         var size = localStorage.getItem('size');
@@ -169,7 +178,6 @@
             type: "DELETE", //请求方式
             success: function (data) {
                 if (data.result === "success") {
-                    // alert("删除成功");
                     notification("删除成功");
                     page(1, 5);
                 }
@@ -184,6 +192,53 @@
             $('#liveToast').removeClass('show').addClass('hide');
         }, 5000);
     }
+
+    function pageFuzzy(page, size) {
+        var authority;
+        console.log($("#findusername").val());
+        console.log($("#quanxian").val());
+        $.get({
+            url: "/user/fuzzy",
+            data: {
+                "username": $("#findusername").val(),
+                "authority": $("#quanxian").val(),
+                "page": page,
+                "size": size
+            },
+            success: function (data) {
+                if (data.result === "success") {
+                    var html = "";
+                    var d = data.data.records;
+                    other = data.data;
+                    for (var i = 0; i < d.length; i++) {
+                        html += "<tr>";
+                        html += "<td>" + (i + 1) + "</td>";
+                        html += "<td>" + d[i].username + "</td>";
+                        if (d[i].authority === 1) {
+                            html += "<td>超级管理员</td>";
+                        } else {
+                            html += "<td>仓库管理员</td>";
+                        }
+                        // html += "<td>" + d[i].authority + "</td>";
+                        html += "<td><button type=\"button\" class=\"btn-danger\" " + "id=" + d[i].id + ">删除</button></td>";
+                        // html += "<td><a href='/user/delete?id=" + d[i].id + "'>删除</a></td>";
+                        html += "</tr>";
+                    }
+                    $("#tbody").html(html);
+                    console.log(html);
+                    localStorage.setItem('pages', other.pages);
+                    localStorage.setItem('size', other.size);
+                    localStorage.setItem('current', other.current);
+                    localStorage.setItem('total', other.total);
+                }
+            }
+        });
+    }
+
+    $("#find").click(function () {
+        pageFuzzy(1, 5);
+    });
+
 </script>
 </body>
 </html>
