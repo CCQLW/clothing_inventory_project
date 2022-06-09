@@ -5,12 +5,8 @@
     <title>货号管理</title>
     <link rel="stylesheet" href="../bootstrap-4.6.1-dist/css/bootstrap.css">
     <script src="../js/jquery.min.js"></script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="Stylesheet " href="../css/bootstrap.css">
     <script type="text/javascript" src="../js/bootstrap.js"></script>
-    <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
 </head>
 <body>
 <header>
@@ -41,41 +37,79 @@
                         <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
                             新增
                         </button>
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="tradeName" class="control-label" style="color: black">货品名称 : </label>
-                                                <input id="tradeName" type="text" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="colorNo" class="control-label" style="color: black">色号 : </label>
-                                                <input id="colorNo" type="text" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="size" class="control-label" style="color: black">尺码 : </label>
-                                                <input id="size" type="text" class="form-control">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                        <button type="button" class="btn btn-primary" id = "save">保存</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 </header>
+<!--保存 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="tradeName" class="control-label" style="color: black">货品名称 : </label>
+                        <input id="tradeName" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="colorNo" class="control-label" style="color: black">色号 : </label>
+                        <input id="colorNo" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="size" class="control-label" style="color: black">尺码 : </label>
+                        <input id="size" type="text" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id = "save">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改 -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div style="display:none">
+                            <textarea id="uid" type="text" class="form-control" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="UtradeName" class="col-form-label" style="color: black">货品名称 : </label>
+                        <input id="UtradeName" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="UcolorNo" class="col-form-label" style="color: black">色号 : </label>
+                        <input id="UcolorNo" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="Usize" class="col-form-label" style="color: black">尺码 : </label>
+                        <input id="Usize" type="text" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id = "update">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
@@ -132,7 +166,6 @@
 
     function page(page, size) {
         var other;
-        console.log("88888888888888888888888888")
         $.get({
             url: "/article_number/getPage",
             data: {
@@ -152,7 +185,9 @@
                         html += "<td>" + d[i].colorNo + "</td>";
                         html += "<td>" + d[i].size + "</td>";
                         html += "<td>" + d[i].number + "</td>";
-                        html += "<td><button type=\"button\" class=\"btn-danger\" "+ "id=" + d[i].id + ">删除</button></td>";
+                        //
+                        html += "<td><button type=\"button\" class=\"btn-info\" data-toggle=\"modal\" data-target=\"#updateModal\""+ "data-whatever=" + d[i].id + ">修改</button>" +
+                            "<button type=\"button\" class=\"btn-danger\" "+ "id=" + d[i].id + ">删除</button></td>";
                         // html += "<td><a href='/user/delete?id=" + d[i].id + "'>删除</a></td>";
                         html += "</tr>";
                     }
@@ -198,17 +233,23 @@
     });
     $("#tbody").on("click", "button", function () {
         var id = $(this).attr("id");
-        // console.log(id);
-        $.ajax({
-            url: "/article_number/delete/" + id, //请求地址
-            type: "DELETE", //请求方式
-            success: function (data) {
-                if (data.code === 20021) {
-                    alert("删除成功");
-                    page(1, 5);
+        var cals = $(this).attr("class");
+        // console.log(cals);
+        if(cals === 'btn-danger'){
+            $.ajax({
+                url: "/article_number/delete/" + id, //请求地址
+                type: "DELETE", //请求方式
+                success: function (data) {
+                    if (data.code === 20021) {
+                        alert("删除成功");
+                        page(1, 5);
+                    }
                 }
-            }
-        });
+            });
+        }
+        else{
+
+        }
     });
     $("#save").on("click", function () {
         // console.log($("#tradeName").val());
@@ -224,7 +265,6 @@
         $.ajax({
             url: "/article_number/save", //请求地址
             type: "POST", //请求方式
-            // data: JSON.stringify($("#projectSalaryForm").serialize())
             contentType: "application/json",
             data: JSON.stringify({
                 tradeName: tradeName,
@@ -264,6 +304,43 @@
             }
         });
     });
+    $("#update").on("click", function () {
+        // console.log($("#tradeName").val());
+        // console.log($("#colorNo").val());
+        // console.log($("#size").val());
+        var tradeName = $("#UtradeName").val();
+        var colorNo = $("#UcolorNo").val();
+        var size = $("#Usize").val();
+        var id = $("#uid").val();
+        if(tradeName === ''&&colorNo === ''&&size === ''){
+            alert("未修改值");
+            return;
+        }
+        // console.log(id);
+        $.ajax({
+            url: "/article_number/update", //请求地址
+            type: "PUT", //请求方式
+            contentType: "application/json",
+            data: JSON.stringify({
+                id: id,
+                tradeName: tradeName,
+                colorNo: colorNo,
+                size: size
+            }),
+            success: function (data) {
+                if (data.code === 20031) {
+                    alert("修改成功");
+                    page(1, 5);
+                }
+            }
+        });
+    });
+    $('#updateModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        var modal = $(this);
+        modal.find('.modal-body textarea').val(id);
+    })
 </script>
 </body>
 </html>

@@ -36,15 +36,16 @@ public class Article_numberServiceImpl implements IArticle_numberService {
 
     public boolean update(Article_number articleNumber){
         Article_number articleNumber1 = articleNumberDao.selectById(articleNumber.getId());
-        if(articleNumber.getTradeName() == null){
+        if(articleNumber.getTradeName() == ""){
             articleNumber.setTradeName(articleNumber1.getTradeName());
         }
-        if(articleNumber.getColorNo() == null){
+        if(articleNumber.getColorNo() == ""){
             articleNumber.setColorNo(articleNumber1.getColorNo());
         }
         if(articleNumber.getSize() == null){
             articleNumber.setSize(articleNumber1.getSize());
         }
+        articleNumber.setNumber(articleNumber1.getNumber());
         articleNumber.setArticleNumber();
         return articleNumberDao.updateById(articleNumber) > 0;
     }
