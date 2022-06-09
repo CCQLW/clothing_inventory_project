@@ -84,6 +84,7 @@
         <th scope="col">商品名</th>
         <th scope="col">色号</th>
         <th scope="col">尺码</th>
+        <th scope="col">数量</th>
         <th scope="col">操作</th>
     </tr>
     </thead>
@@ -150,6 +151,7 @@
                         html += "<td>" + d[i].tradeName + "</td>";
                         html += "<td>" + d[i].colorNo + "</td>";
                         html += "<td>" + d[i].size + "</td>";
+                        html += "<td>" + d[i].number + "</td>";
                         html += "<td><button type=\"button\" class=\"btn-danger\" "+ "id=" + d[i].id + ">删除</button></td>";
                         // html += "<td><a href='/user/delete?id=" + d[i].id + "'>删除</a></td>";
                         html += "</tr>";
