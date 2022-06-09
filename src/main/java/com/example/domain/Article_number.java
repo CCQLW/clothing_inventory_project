@@ -32,6 +32,8 @@ public class Article_number {
 
     private Integer size;    //尺码
 
+    private Integer number = 0;     //数量
+
     @TableLogic(value = "0", delval = "1")
     private byte putDelete;   //是否删除
 
@@ -73,5 +75,4 @@ public class Article_number {
         }
         articleNumber = strTradeName + "-" + colorNo + "-" + size;
     }
-
 }

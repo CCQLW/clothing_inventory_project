@@ -3,8 +3,10 @@ package com.example.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dao.GrnDao;
+import com.example.dao.Warehousing_detailDao;
 import com.example.domain.Article_number;
 import com.example.domain.Grn;
+import com.example.domain.Warehousing_detail;
 import com.example.service.IGrnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,16 @@ public class GrnServiceImpl implements IGrnService {
     public Page<Grn> getPage(Integer current, Integer size){
         Page<Grn> page = new Page<>(current, size);
         return grnDao.selectPage(page, null);
+    }
+
+    @Autowired
+    private Warehousing_detailDao warehousing_detailDao;
+
+    //查询明细
+    public Page<Warehousing_detail> getByIdPage(Integer current, Integer size, Integer id){
+        LambdaQueryWrapper<Warehousing_detail> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Warehousing_detail::getGrnId, id);
+        Page<Warehousing_detail> warehousing_detailPage = new Page<>(current, size);
+        return warehousing_detailDao.selectPage(warehousing_detailPage, queryWrapper);
     }
 }

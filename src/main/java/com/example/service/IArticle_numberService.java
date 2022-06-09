@@ -31,4 +31,7 @@ public interface IArticle_numberService{
 
     //分页查询
     public Page<Article_number> getPage(Integer current, Integer size);
+
+    //模糊查询
+    public Page<Article_number> get(Article_number articleNumber, Integer current, Integer size);
 }

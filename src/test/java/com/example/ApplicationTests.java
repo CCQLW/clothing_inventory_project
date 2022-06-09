@@ -1,5 +1,6 @@
 package com.example;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dao.Article_numberDao;
 import com.example.dao.GrnDao;
 import com.example.dao.UserDao;
@@ -29,6 +30,7 @@ class ApplicationTests {
         articleNumber.setTradeName("T恤");
         articleNumber.setColorNo("red");
         articleNumber.setSize(170);
+        articleNumber.setNumber(10000);
         iArticle_numberService.save(articleNumber);
     }
 
@@ -55,6 +57,17 @@ class ApplicationTests {
     void testGetList(){
         List<Article_number> list = iArticle_numberService.getList();
         System.out.println(list);
+    }
+
+    @Test
+    void testGet(){
+        Article_number articleNumber = new Article_number();
+//        articleNumber.setTradeName("T");
+//        articleNumber.setSize(5);
+//        articleNumber.setColorNo("b");
+        articleNumber.setArticleNumber("b");
+        Page<Article_number> page = iArticle_numberService.get(articleNumber, 1, 5);
+        System.out.println(page);
     }
 
     @Autowired

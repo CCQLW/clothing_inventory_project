@@ -4,6 +4,7 @@ package com.example.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Article_number;
 import com.example.domain.Grn;
+import com.example.domain.Warehousing_detail;
 import com.example.service.IArticle_numberService;
 import com.example.service.IGrnService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,14 @@ public class GrnController {
         String msg = grnPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, grnPage, msg);
     }
+
+    @GetMapping("getByIdPage/{id}")
+    public Result getByIdPage(Integer page, Integer size,@PathVariable Integer id){
+        Page<Warehousing_detail> warehousingDetailPage = iGrnService.getByIdPage(page, size, id);
+        Integer code = warehousingDetailPage != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = warehousingDetailPage != null ? "" : "数据查询失败，请重试！";
+        return new Result(code, warehousingDetailPage, msg);
+    }
+
 }
 

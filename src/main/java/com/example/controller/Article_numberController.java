@@ -49,7 +49,7 @@ public class Article_numberController {
         return new Result(code,articleNumber,msg);
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public Result getAll() {
         List<Article_number> articleNumberList = iArticle_numberService.getList();
         Integer code = articleNumberList != null ? Code.GET_OK : Code.GET_ERR;
@@ -57,9 +57,22 @@ public class Article_numberController {
         return new Result(code,articleNumberList,msg);
     }
 
-    @GetMapping("getPage")
+    @GetMapping("/getPage")
     public Result getPage(Integer page, Integer size){
         Page<Article_number> article_numberPage = iArticle_numberService.getPage(page, size);
+        Integer code = article_numberPage != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = article_numberPage != null ? "" : "数据查询失败，请重试！";
+        return new Result(code, article_numberPage, msg);
+    }
+
+    @GetMapping("/get")
+    public Result get(String articleNumber, String tradeName, String colorNo, Integer size){
+        Article_number article_number = new Article_number();
+        article_number.setArticleNumber(articleNumber);
+        article_number.setTradeName(tradeName);
+        article_number.setColorNo(colorNo);
+        article_number.setSize(size);
+        Page<Article_number> article_numberPage = iArticle_numberService.get(article_number, 1, 5);
         Integer code = article_numberPage != null ? Code.GET_OK : Code.GET_ERR;
         String msg = article_numberPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, article_numberPage, msg);

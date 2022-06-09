@@ -61,4 +61,15 @@ public class Article_numberServiceImpl implements IArticle_numberService {
         Page<Article_number> page = new Page<>(current, size);
         return articleNumberDao.selectPage(page, null);
     }
+
+    //模糊查询
+    public Page<Article_number> get(Article_number articleNumber, Integer current, Integer size){
+        Page<Article_number> page = new Page<>(current, size);
+        LambdaQueryWrapper<Article_number> lqw = new LambdaQueryWrapper<Article_number>();
+        if(articleNumber.getArticleNumber() != null) lqw.like(Article_number::getArticleNumber, articleNumber.getArticleNumber());
+        if(articleNumber.getTradeName() != null) lqw.like(Article_number::getTradeName, articleNumber.getTradeName());
+        if(articleNumber.getColorNo() != null) lqw.like(Article_number::getColorNo, articleNumber.getColorNo());
+        if(articleNumber.getSize() != null) lqw.like(Article_number::getSize, articleNumber.getSize());
+        return articleNumberDao.selectPage(page, lqw);
+    }
 }

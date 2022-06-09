@@ -3,6 +3,7 @@ package com.example.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Article_number;
 import com.example.domain.Grn;
+import com.example.domain.Warehousing_detail;
 
 import java.util.List;
 
@@ -32,4 +33,7 @@ public interface IGrnService{
 
     //分页查询
     public Page<Grn> getPage(Integer current, Integer size);
+
+    //查询明细
+    public Page<Warehousing_detail> getByIdPage(Integer current, Integer size, Integer id);
 }
