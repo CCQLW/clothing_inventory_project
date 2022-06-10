@@ -76,14 +76,6 @@ public class GrnServiceImpl implements IGrnService {
         return grnDao.selectPage(page, null);
     }
 
-    //查询明细
-    public Page<Warehousing_detail> getByIdPage(Integer current, Integer size, Integer id){
-        LambdaQueryWrapper<Warehousing_detail> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Warehousing_detail::getGrnId, id);
-        Page<Warehousing_detail> warehousing_detailPage = new Page<>(current, size);
-        return warehousing_detailDao.selectPage(warehousing_detailPage, queryWrapper);
-    }
-
     //模糊查询
     public Page<Grn> get(Grn grn, Integer current, Integer size){
         Page<Grn> page = new Page<>(current, size);

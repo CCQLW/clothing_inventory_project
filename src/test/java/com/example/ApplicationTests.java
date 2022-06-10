@@ -128,4 +128,10 @@ class ApplicationTests {
         System.out.println(warehousing_detail);
     }
 
+    @Test
+    void testGetByGrnIdPage(){
+        Page<Warehousing_detail> warehousing_detailPage = iWarehousing_detailService.getByGrnIdPage(1, 5, 5);
+        System.out.println(warehousing_detailPage);
+    }
+
 }

@@ -34,9 +34,6 @@ public interface IGrnService{
     //分页查询
     public Page<Grn> getPage(Integer current, Integer size);
 
-    //查询明细
-    public Page<Warehousing_detail> getByIdPage(Integer current, Integer size, Integer id);
-
     //模糊查询
     public Page<Grn> get(Grn grn, Integer current, Integer size);
 }

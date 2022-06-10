@@ -91,11 +91,11 @@
 
 <script>
 
-
-
     function page(page, size) {
         var other;
         var id = localStorage.getItem('id');
+        var test = localStorage.getItem('pages');
+        console.log("111:" + test);
         // console.log(id);
         $.get({
             url: "/warehousing_detail/getByGrnIdPage",
@@ -122,10 +122,13 @@
                         html += "</tr>";
                     }
                     $("#tbody").html(html);
+                    console.log("22222:" + other.pages);
                     localStorage.setItem('pages', other.pages);
                     localStorage.setItem('size', other.size);
                     localStorage.setItem('current', other.current);
                     localStorage.setItem('total', other.total);
+                    var webpages = localStorage.getItem('webpages');
+                    if(webpages === "0") pages();
                 }
             }
         });
@@ -133,10 +136,16 @@
         // return "other";
     }
 
-    window.onload = function () {
+    window.onload = function (){
+        localStorage.setItem('webpages', "0");
         page(1, 5);
+    }
+
+    function pages () {
+        localStorage.setItem('webpages', "1");
         var pages = localStorage.getItem('pages');
         var size = localStorage.getItem('size');
+        console.log("333333:" + pages);
         // var line = ' <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li> ';
         var line = "";
         for (var i = 1; i <= pages; i++) {

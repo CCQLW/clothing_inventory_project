@@ -68,14 +68,6 @@ public class GrnController {
         return new Result(code, grnPage, msg);
     }
 
-    @GetMapping("getByIdPage/{id}")
-    public Result getByIdPage(Integer page, Integer size,@PathVariable Integer id){
-        Page<Warehousing_detail> warehousingDetailPage = iGrnService.getByIdPage(page, size, id);
-        Integer code = warehousingDetailPage != null ? Code.GET_OK : Code.GET_ERR;
-        String msg = warehousingDetailPage != null ? "" : "数据查询失败，请重试！";
-        return new Result(code, warehousingDetailPage, msg);
-    }
-
     @GetMapping("/get")
     public Result get(String receiptNumber, String warehouse, String agent, String source){
         Grn grn = new Grn();
