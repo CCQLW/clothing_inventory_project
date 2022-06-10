@@ -34,13 +34,29 @@ public class GrnServiceImpl implements IGrnService {
         return grnDao.insert(grn) > 0;
     }
 
+    @Autowired
+    private Warehousing_detailDao warehousing_detailDao;
+
     //删
     public boolean delete(Integer id){
+        LambdaQueryWrapper<Warehousing_detail> lqw = new LambdaQueryWrapper<Warehousing_detail>();
+        lqw.eq(Warehousing_detail::getGrnId, id);
+        warehousing_detailDao.delete(lqw);
         return grnDao.deleteById(id) > 0;
     }
 
     //改
     public boolean update(Grn grn){
+        Grn grn1 = grnDao.selectById(grn.getId());
+        if(grn.getWarehouse() == ""){
+            grn.setWarehouse(grn1.getWarehouse());
+        }
+        if(grn.getAgent() == ""){
+            grn.setAgent(grn1.getAgent());
+        }
+        if(grn.getSource() == ""){
+            grn.setSource(grn1.getSource());
+        }
         return grnDao.updateById(grn) > 0;
     }
 
@@ -59,9 +75,6 @@ public class GrnServiceImpl implements IGrnService {
         Page<Grn> page = new Page<>(current, size);
         return grnDao.selectPage(page, null);
     }
-
-    @Autowired
-    private Warehousing_detailDao warehousing_detailDao;
 
     //查询明细
     public Page<Warehousing_detail> getByIdPage(Integer current, Integer size, Integer id){
