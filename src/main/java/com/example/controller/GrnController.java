@@ -76,5 +76,17 @@ public class GrnController {
         return new Result(code, warehousingDetailPage, msg);
     }
 
+    @GetMapping("/get")
+    public Result get(String receiptNumber, String warehouse, String agent, String source){
+        Grn grn = new Grn();
+        grn.setReceiptNumber(receiptNumber);
+        grn.setWarehouse(warehouse);
+        grn.setAgent(agent);
+        grn.setSource(source);
+        Page<Grn> grnPage = iGrnService.get(grn, 1, 5);
+        Integer code = grnPage != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = grnPage != null ? "" : "数据查询失败，请重试！";
+        return new Result(code, grnPage, msg);
+    }
 }
 

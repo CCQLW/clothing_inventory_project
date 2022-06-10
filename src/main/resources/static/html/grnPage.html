@@ -16,21 +16,21 @@
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
                         单据编号：
-                        <input type="text" class="form-control" placeholder="单据编号">
+                        <input id="getReceiptNumber" type="text" class="form-control" placeholder="单据编号">
                     </div>
                     <div class="form-group">
                         所入仓库：
-                        <input type="text" class="form-control" placeholder="所入仓库">
+                        <input id="getWarehouse" type="text" class="form-control" placeholder="所入仓库">
                     </div>
                     <div class="form-group">
                         经办人：
-                        <input type="text" class="form-control" placeholder="经办人">
+                        <input id="getAgent" type="text" class="form-control" placeholder="经办人">
                     </div>
                     <div class="form-group">
                         来源：
-                        <input type="text" class="form-control" placeholder="来源">
+                        <input id="getSource" type="text" class="form-control" placeholder="来源">
                     </div>
-                    <button type="submit" class="btn btn-default">搜索</button>
+                    <button id="get" type="submit" class="btn btn-default">搜索</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -281,6 +281,28 @@
                 if (data.code === 20011) {
                     alert("新增成功");
                     page(1, 5);
+                }
+            }
+        });
+    });
+    $("#get").on("click", function () {
+        var receiptNumber = $("#getReceiptNumber").val();
+        var warehouse = $("#getWarehouse").val();
+        var agent = $("#getAgent").val();
+        var source = $("#getSource").val();
+        $.ajax({
+            url: "/grn/get", //请求地址
+            type: "GET", //请求方式
+            data: {
+                receiptNumber: receiptNumber,
+                warehouse: warehouse,
+                agent: agent,
+                source: source
+            },
+            success: function (data) {
+                console.log(data.code);
+                if (data.code === 20041) {
+
                 }
             }
         });

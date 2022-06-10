@@ -83,4 +83,15 @@ public class GrnServiceImpl implements IGrnService {
         Page<Warehousing_detail> warehousing_detailPage = new Page<>(current, size);
         return warehousing_detailDao.selectPage(warehousing_detailPage, queryWrapper);
     }
+
+    //模糊查询
+    public Page<Grn> get(Grn grn, Integer current, Integer size){
+        Page<Grn> page = new Page<>(current, size);
+        LambdaQueryWrapper<Grn> lqw = new LambdaQueryWrapper<Grn>();
+        if(grn.getReceiptNumber() != null) lqw.like(Grn::getReceiptNumber, grn.getReceiptNumber());
+        if(grn.getWarehouse() != null) lqw.like(Grn::getWarehouse, grn.getWarehouse());
+        if(grn.getAgent() != null) lqw.like(Grn::getAgent, grn.getAgent());
+        if(grn.getSource() != null) lqw.like(Grn::getSource, grn.getSource());
+        return grnDao.selectPage(page, lqw);
+    }
 }
