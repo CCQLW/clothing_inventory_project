@@ -5,41 +5,8 @@
     <title>table</title>
     <script src="../js/jquery.min.js"></script>
     <link rel="stylesheet" href="../bootstrap-4.6.1-dist/css/bootstrap.css">
-    <script>
-        function a1() {
-            $.get({
-                url: "/delivery_details/page",
-                data: {
-                    "current": 1,
-                    "size": 5,
-                },
-                success: function (data) {
-                    // console.log(data);
-                    if (data.result === "success") {
-                        var html = "";
-                        var d = data.data.records
-                        for (var i = 0; i < d.length; i++) {
-                            html += "<tr>";
-                            html += "<td>" + (i + 1) + "</td>";
-                            html += "<td>" + d[i].articleId + "</td>";
-                            html += "<td>" + d[i].tradeName + "</td>";
-                            html += "<td>" + d[i].colorNo + "</td>";
-                            html += "<td>" + d[i].size + "</td>";
-                            html += "<td>" + d[i].number + "</td>";
-                            html += "</tr>";
-                        }
-                        console.log(html);
-                        $("#tabaa").html(html);
-                    }
-                    // $("#table").html(data.data);
-                }
-            })
-        }
-    </script>
 </head>
 <body>
-<span style="width: 50%" onclick="a1()">点我</span>
-<!--<iframe style="width: 100%; height: 500px" id="ffff">-->
     <table class="table table-dark" style="width: 100%;height: 100%">
         <thead>
         <tr>
@@ -71,10 +38,12 @@
             <td>@twitter</td>
         </tr>
         </tbody>
-        <!--            <tr>操作</tr>-->
     </table>
-
-<!--</iframe>-->
-
+<script>
+    $(function () {
+        var a=sessionStorage.getItem("aaaaa","123");
+        console.log(a)
+    })
+</script>
 </body>
 </html>
