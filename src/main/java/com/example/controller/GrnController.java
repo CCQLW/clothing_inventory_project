@@ -26,7 +26,7 @@ public class GrnController {
     @Autowired
     private IGrnService iGrnService;
 
-    @PostMapping("add")
+    @PostMapping("save")
     public Result save(@RequestBody Grn grn) {
         boolean flag = iGrnService.save(grn);
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,flag);

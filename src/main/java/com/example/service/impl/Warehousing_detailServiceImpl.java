@@ -3,6 +3,7 @@ package com.example.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.dao.Article_numberDao;
+import com.example.domain.Article_number;
 import com.example.domain.Delivery_details;
 import com.example.domain.Grn;
 import com.example.domain.Warehousing_detail;
@@ -33,7 +34,10 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
 
     //增
     public boolean save(Warehousing_detail warehousing_detail){
-        warehousing_detail.setArticle(articleNumberDao.selectById(warehousing_detail.getArticleId()));
+        Article_number article_number = articleNumberDao.selectById(warehousing_detail.getArticleId());
+        warehousing_detail.setArticle(article_number);
+        article_number.setNumber(article_number.getNumber() + warehousing_detail.getNumber());
+        articleNumberDao.updateById(article_number);
         return warehousing_detailDao.insert(warehousing_detail) > 0;
     }
 
