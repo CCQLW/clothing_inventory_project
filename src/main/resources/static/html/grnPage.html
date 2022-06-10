@@ -180,7 +180,7 @@
                         html += "<tr>";
                         html += "<td>" + (i + 1) + "</td>";
                         // html += "<td>" + d[i].receiptNumber + "</td>";
-                        html += "<td><a class=\"btn btn-primary btn-lg active\" role=\"button\" " + "id=" + d[i].grnId + ">" + d[i].receiptNumber + "</a></td>";
+                        html += "<td><a class=\"btn btn-primary btn-lg active\" role=\"button\" " + "id=" + d[i].id + ">" + d[i].receiptNumber + "</a></td>";
                         html += "<td>" + d[i].warehouse + "</td>";
                         html += "<td>" + fmtDateTime(d[i].storageTime) + "</td>";
                         html += "<td>" + d[i].agent + "</td>";
@@ -258,6 +258,8 @@
     });
     $("#tbody").on("click", "a", function () {
         var id = $(this).attr("id");
+        localStorage.setItem("id", id);
+        // console.log(id);
         window.location.href = '../html/warehousingDatailPate.html';
     });
     $("#save").on("click", function () {
