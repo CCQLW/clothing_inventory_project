@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Delivery_order;
+import com.example.domain.Delivery_order;
 import com.example.service.IDelivery_orderService;
 import com.example.service.IDelivery_orderService;
 import com.example.utils.Result;
@@ -50,13 +51,25 @@ public class Delivery_orderController {
     @GetMapping("/{id}")
     public Result getDelivery_orderById(@PathVariable Integer id) {
         return delivery_orderService.getDelivery_orderById(id);
-
     }
     @GetMapping("/pageorder")
-    public Result getOrderPage( Integer current, Integer size) {
+    public Result getOrderPage(Integer current, Integer size) {
 //        LambdaQueryWrapper<Delivery_order> queryWrapper = new LambdaQueryWrapper<>();
         IPage<Delivery_order> page = new Page<>(current, size);
         return new Result(delivery_orderService.page(page));
+    }
+
+    @GetMapping("/fuzzy")
+    public Result fuzzy(Delivery_order order, Integer page, Integer size) {
+        LambdaQueryWrapper<Delivery_order> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(order.getReceiptNumber()!=null,Delivery_order::getReceiptNumber, order.getReceiptNumber());
+        queryWrapper.like(order.getWarehouse()!=null,Delivery_order::getWarehouse, order.getWarehouse());
+//        queryWrapper.like(order.getStorageTime()!=null,Delivery_order::getStorageTime, order.getStorageTime());
+//        queryWrapper.like(order.getStorageTime()!=null,Delivery_order::getStorageTime, order.getStorageTime());
+        queryWrapper.like(order.getAgent()!=null,Delivery_order::getAgent, order.getAgent());
+        queryWrapper.like(order.getWhereabouts()!=null,Delivery_order::getWhereabouts, order.getWhereabouts());
+        Page<Delivery_order> pages = new Page<>(page, size);
+        return new Result("success", delivery_orderService.page(pages, queryWrapper));
     }
 
     @GetMapping("/page")
