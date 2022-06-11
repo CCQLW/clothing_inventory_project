@@ -74,11 +74,17 @@ $(function () {
     });
     $("#update").on("click", function () {
         updateOrder();
+        // $("#updateModal").modal('hide');
+        $(this).siblings().click();
+        $("#uwarehouse").val("");
+        $("#uagent").val("");
+        $("#usource").val("");
+        $("#updateModal").click();
     });
     $("#updateModal").on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id = button.data('whatever');
-        console.log("id=" + id);
+        // console.log("id=" + id);
         var modal = $(this);
         modal.find('.modal-body textarea').val(id);
     });
@@ -178,12 +184,11 @@ function updateOrder() {
             id: id,
             warehouse: warehouse,
             agent: agent,
-            source: source
+            whereabouts: source
         }),
         success: function (data) {
             if (data.result === "success") {
-                loadTable();
-                loadPagination();
+                getTable(1);
             }
         }
     });
