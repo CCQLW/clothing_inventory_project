@@ -44,6 +44,15 @@ public class Delivery_orderController {
 
     @PutMapping
     public Result updateDelivery_order(@RequestBody Delivery_order order) {
+        if ("".equals(order.getWarehouse())) {
+            order.setWarehouse(null);
+        }
+        if ("".equals(order.getAgent())) {
+            order.setAgent(null);
+        }
+        if ("".equals(order.getWhereabouts())) {
+            order.setWhereabouts(null);
+        }
         return new Result(delivery_orderService.updateById(order));
     }
 
@@ -56,6 +65,7 @@ public class Delivery_orderController {
     public Result getDelivery_orderById(@PathVariable Integer id) {
         return delivery_orderService.getDelivery_orderById(id);
     }
+
     @GetMapping("/pageorder")
     public Result getOrderPage(Integer current, Integer size) {
         IPage<Delivery_order> page = new Page<>(current, size);
@@ -65,19 +75,19 @@ public class Delivery_orderController {
     @GetMapping("/fuzzy")
     public Result fuzzy(Delivery_order order, Integer page, Integer size) {
         LambdaQueryWrapper<Delivery_order> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(order.getReceiptNumber()!=null,Delivery_order::getReceiptNumber, order.getReceiptNumber());
-        queryWrapper.like(order.getWarehouse()!=null,Delivery_order::getWarehouse, order.getWarehouse());
+        queryWrapper.like(order.getReceiptNumber() != null, Delivery_order::getReceiptNumber, order.getReceiptNumber());
+        queryWrapper.like(order.getWarehouse() != null, Delivery_order::getWarehouse, order.getWarehouse());
 //        queryWrapper.like(order.getStorageTime()!=null,Delivery_order::getStorageTime, order.getStorageTime());
 //        queryWrapper.like(order.getStorageTime()!=null,Delivery_order::getStorageTime, order.getStorageTime());
-        queryWrapper.like(order.getAgent()!=null,Delivery_order::getAgent, order.getAgent());
-        queryWrapper.like(order.getWhereabouts()!=null,Delivery_order::getWhereabouts, order.getWhereabouts());
+        queryWrapper.like(order.getAgent() != null, Delivery_order::getAgent, order.getAgent());
+        queryWrapper.like(order.getWhereabouts() != null, Delivery_order::getWhereabouts, order.getWhereabouts());
         Page<Delivery_order> pages = new Page<>(page, size);
         return new Result("success", delivery_orderService.page(pages, queryWrapper));
     }
 
     @GetMapping("/page")
     public Result getPage(Integer current, Integer size, Integer id) {
-       return delivery_orderService.getdelivery_orderPageById(current, size, id);
+        return delivery_orderService.getdelivery_orderPageById(current, size, id);
 //        IPage<Delivery_order> page = new Page<Delivery_order>(current, size);
 //        return new Result(delivery_orderService.page(page, null));
     }

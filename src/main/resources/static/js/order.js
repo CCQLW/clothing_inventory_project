@@ -72,8 +72,18 @@ $(function () {
             }
         });
     });
-
+    $("#update").on("click", function () {
+        updateOrder();
+    });
+    $("#updateModal").on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        console.log("id=" + id);
+        var modal = $(this);
+        modal.find('.modal-body textarea').val(id);
+    });
 });
+
 
 
 function loadTable() {
@@ -88,7 +98,7 @@ function loadTable() {
         tr.append("<td>" + value.agent + "</td>");
         tr.append("<td>" + value.whereabouts + "</td>");
         buttenDelete = "<div class='col-md-2'><button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
-        buttenUpdate = "<div class='col-md-2'> <button type='button' class='btn btn-primary' onclick='updateOrder(" + value.id + ")'>修改</button>";
+        buttenUpdate = "<div class='col-md-2'> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='"+value.id+"'>修改</button>";
         tr.append("<td><div class='row'>" + buttenUpdate + "</div>" + buttenDelete + "</div></div></td>");
         $("tbody").append(tr);
     });
@@ -156,8 +166,14 @@ function updateOrder() {
     var agent = $("#uagent").val();
     var source = $("#usource").val();
     var id = $("#uid").val();
-    $.put({
+    // console.log(warehouse);
+    // console.log(agent);
+    // console.log(source);
+    // console.log(id);
+    $.ajax({
         url: "/delivery_order/",
+        type: "PUT",
+        contentType: "application/json",
         data: JSON.stringify({
             id: id,
             warehouse: warehouse,
@@ -166,7 +182,6 @@ function updateOrder() {
         }),
         success: function (data) {
             if (data.result === "success") {
-                setsession(data.data);
                 loadTable();
                 loadPagination();
             }
@@ -175,23 +190,19 @@ function updateOrder() {
 }
 
 function fuzzyOrder(page) {
-    console.log($(".receiptNumber").val());
-    // console.log($(".form-control.receiptNumber").text());
-    // console.log($(".form-control.receiptNumber").html());
+    // console.log($(".receiptNumber").val());
+    // console.log($(".form-control.receiptNumber").val());
     $.get({
         url: "/delivery_order/fuzzy",
         data: {
             "page": page,
             "size": MAXPAGE,
             "receiptNumber": $(".receiptNumber").val(),
-            // "receiptNumber": "1",
             "warehouse": $(".warehouse").val(),
-            // "storageTime": $("#storageTime").val(),
             "agent": $(".agent").val(),
             "whereabouts": $(".whereabouts").val()
         },
         success: function (data) {
-            console.log(data);
             if (data.result === "success") {
                 setsession(data.data);
                 loadTable();
@@ -209,10 +220,3 @@ function fmtDateTime(obj) {
     return year + '-' + month.substring(month.length - 2, month.length) + '-' + day.substring(day.length - 2, day.length);
 }
 
-$("#updateModal").on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data('whatever');
-    console.log("1234" + id);
-    var modal = $(this);
-    modal.find('.modal-body textarea').val(id);
-});

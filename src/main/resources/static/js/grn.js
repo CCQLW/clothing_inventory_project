@@ -92,6 +92,7 @@ $(function () {
         var agent = $("#uagent").val();
         var source = $("#usource").val();
         var id = $("#uid").val();
+        console.log(id);
         if(warehouse === ''&&agent === ''&&source === ''){
             alert("未修改值");
             return;
