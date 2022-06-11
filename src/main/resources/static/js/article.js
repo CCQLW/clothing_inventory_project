@@ -19,7 +19,6 @@ $(function () {
     $("#tbody").on('click', 'button', function () {
         var id = $(this).attr("id");
         var cals = $(this).attr("class");
-        console.log(cals);
         if(cals === 'btn-danger'){
             $.ajax({
                 url: "/article_number/delete/" + id, //请求地址
@@ -58,6 +57,41 @@ $(function () {
             }
         });
     });
+    $("#update").on("click", function () {
+        var tradeName = $("#UtradeName").val();
+        var colorNo = $("#UcolorNo").val();
+        var size = $("#Usize").val();
+        var id = $("#uid").val();
+        console.log(id);
+        if(tradeName === ''&&colorNo === ''&&size === ''){
+            alert("未修改值");
+            return;
+        }
+        $.ajax({
+            url: "/article_number/update", //请求地址
+            type: "PUT", //请求方式
+            contentType: "application/json",
+            data: JSON.stringify({
+                id: id,
+                tradeName: tradeName,
+                colorNo: colorNo,
+                size: size
+            }),
+            success: function (data) {
+                if (data.code === 20031) {
+                    alert("修改成功");
+                    getTable(1, MAXPAGE);
+                }
+            }
+        });
+    });
+    $("#updateModal").on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        console.log("1234" + id);
+        var modal = $(this);
+        modal.find('.modal-body textarea').val(id);
+    });
 });
 
 
@@ -72,8 +106,10 @@ function loadTable() {
         tr.append("<td>" + value.colorNo + "</td>");
         tr.append("<td>" + value.size + "</td>");
         tr.append("<td>" + value.number + "</td>");
-        tr.append("<td>" + "<button type='button' class='btn-info' data-toggle='modal' data-target='#updateModal'" + "data-waterver='" + value.id + "'>修改</button>" +
-            "<button type='button' class='btn-danger' "+ "id='" + value.id + "'>删除</button></td>")
+        tr.append("<td>" + "<div class='row'>" +
+            "<div class='col-md-2'><button type='button' class='btn-info' data-toggle='modal' data-target='#updateModal'" + "data-whatever='" + value.id + "'>修改</button></div>" +
+            // "<div class='col-md-1'></div>" +
+            "<div class='col-md-2'><button type='button' class='btn-danger' "+ "id='" + value.id + "'>删除</button></div></div></td>")
         $("tbody").append(tr);
     });
 }
