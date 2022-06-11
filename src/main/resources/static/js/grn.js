@@ -19,9 +19,10 @@ $(function () {
     $("#tbody").on('click', 'button', function () {
         var id = $(this).attr("id");
         var cals = $(this).attr("class");
-        if(cals === 'btn-danger'){
+        if(cals === 'btn-danger') {
+            // console.log(id);
             $.ajax({
-                url: "/article_number/delete/" + id, //请求地址
+                url: "/grn/delete/" + id, //请求地址
                 type: "DELETE", //请求方式
                 success: function (data) {
                     if (data.code === 20021) {
@@ -32,22 +33,28 @@ $(function () {
             });
         }
     });
+    $("#tbody").on("click", "a", function () {
+        var id = $(this).attr("id");
+        localStorage.setItem("id", id);
+        // console.log(id);
+        window.location.href = '../html/warehousingDatailPate.html';
+    });
     $("#save").on("click", function () {
-        var tradeName = $("#tradeName").val();
-        var colorNo = $("#colorNo").val();
-        var size = $("#size").val();
-        if(tradeName === ''||colorNo === ''||size ===  ''){
+        var warehouse = $("#warehouse").val();
+        var agent = $("#agent").val();
+        var source = $("#source").val();
+        if(warehouse === ''||agent ===  ''||source === ''){
             alert('输入不能为空');
             return ;
         }
         $.ajax({
-            url: "/article_number/save", //请求地址
+            url: "/grn/save", //请求地址
             type: "POST", //请求方式
             contentType: "application/json",
             data: JSON.stringify({
-                tradeName: tradeName,
-                colorNo: colorNo,
-                size: size
+                warehouse: warehouse,
+                agent: agent,
+                source: source
             }),
             success: function (data) {
                 if (data.code === 20011) {
@@ -62,7 +69,7 @@ $(function () {
         var tradeName = $("#getTradeName").val();
         var colorNo = $("#getColorNo").val();
         var size = $("#getSize").val();
-        getTableByConditions(1, MAXPAGE, articleNumber, tradeName, colorNo, size);
+        // getTableByConditions(1, MAXPAGE, articleNumber, tradeName, colorNo, size);
         // $.ajax({
         //     url: "/article_number/get", //请求地址
         //     type: "GET", //请求方式
@@ -81,24 +88,24 @@ $(function () {
         // });
     });
     $("#update").on("click", function () {
-        var tradeName = $("#UtradeName").val();
-        var colorNo = $("#UcolorNo").val();
-        var size = $("#Usize").val();
+        var warehouse = $("#uwarehouse").val();
+        var agent = $("#uagent").val();
+        var source = $("#usource").val();
         var id = $("#uid").val();
-        console.log(id);
-        if(tradeName === ''&&colorNo === ''&&size === ''){
+        if(warehouse === ''&&agent === ''&&source === ''){
             alert("未修改值");
             return;
         }
+        // console.log(id);
         $.ajax({
-            url: "/article_number/update", //请求地址
+            url: "/grn/update", //请求地址
             type: "PUT", //请求方式
             contentType: "application/json",
             data: JSON.stringify({
                 id: id,
-                tradeName: tradeName,
-                colorNo: colorNo,
-                size: size
+                warehouse: warehouse,
+                agent: agent,
+                source: source
             }),
             success: function (data) {
                 if (data.code === 20031) {
@@ -124,11 +131,12 @@ function loadTable() {
     $.each(pagedata, function (index, value) {
         var tr = $("<tr></tr>");
         tr.append("<td>" + (index + 1) + "</td>");
-        tr.append("<td>" + value.articleNumber + "</td>");
-        tr.append("<td>" + value.tradeName + "</td>");
-        tr.append("<td>" + value.colorNo + "</td>");
-        tr.append("<td>" + value.size + "</td>");
-        tr.append("<td>" + value.number + "</td>");
+        tr.append("<td><a class='btn btn-primary btn-lg active' role='button' " + "id=" + value.id + ">" + value.receiptNumber + "</a></td>");
+        tr.append("<td>" + value.warehouse + "</td>");
+        tr.append("<td>" + fmtDateTime(value.storageTime) + "</td>");
+        // tr.append("<td>" + fmtDateTime(value.storageTime) + "</td>");
+        tr.append("<td>" + value.agent + "</td>");
+        tr.append("<td>" + value.source + "</td>");
         tr.append("<td>" + "<div class='row'>" +
             "<div class='col-md-2'><button type='button' class='btn-info' data-toggle='modal' data-target='#updateModal'" + "data-whatever='" + value.id + "'>修改</button></div>" +
             // "<div class='col-md-1'></div>" +
@@ -137,9 +145,18 @@ function loadTable() {
     });
 }
 
+function fmtDateTime(obj) {
+    var d = new Date(obj);
+    var year = d.getFullYear();
+    var month = "0" + (d.getMonth() + 1);
+    var day = "0" + d.getDate();
+    var time = year + '-' + month.substring(month.length - 2, month.length) + '-' + day.substring(day.length - 2, day.length);
+    return time;
+}
+
 function getTable(current, size) {
     $.get({
-        url: "/article_number/getPage",
+        url: "/grn/getPage",
         data: {
             "current": current,
             "size": size
@@ -154,58 +171,6 @@ function getTable(current, size) {
                 loadPagination();
             }
         }
-    });
-}
-
-function getTableByConditions(current) {
-    $("#get").on("click", function () {
-        var articleNumber = $("#getArticleNumber").val();
-        var tradeName = $("#getTradeName").val();
-        var colorNo = $("#getColorNo").val();
-        var size = $("#getSize").val();
-        $.ajax({
-            url: "/article_number/get", //请求地址
-            type: "GET", //请求方式
-            data: {
-                current: "1",
-                articleNumber: articleNumber,
-                tradeName: tradeName,
-                colorNo: colorNo,
-                size: size
-            },
-            success: function (data) {
-                console.log(data.code);
-                if (data.code === 20041) {
-                    sessionStorage.setItem("pagedata", JSON.stringify(data.data));
-                    sessionStorage.setItem("total", data.data.total);
-                    sessionStorage.setItem("current", data.data.current);
-                    sessionStorage.setItem("pages", data.data.pages);
-                    loadTable();
-                    loadPagination();
-                }
-            }
-        });
-        // $.get({
-        //     url: "/article_number/get",
-        //     data: {
-        //         "current": "1",
-        //         "articleNumber": articleNumber,
-        //         "tradeName": tradeName,
-        //         "colorNo": colorNo,
-        //         "size": size
-        //     },
-        //     success: function (data) {
-        //         console.log(data.code);
-        //         if (data.code === 20041) {
-        //             sessionStorage.setItem("pagedata", JSON.stringify(data.data));
-        //             sessionStorage.setItem("total", data.data.total);
-        //             sessionStorage.setItem("current", data.data.current);
-        //             sessionStorage.setItem("pages", data.data.pages);
-        //             loadTable();
-        //             loadPagination();
-        //         }
-        //     }
-        // });
     });
 }
 

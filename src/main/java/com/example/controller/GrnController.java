@@ -61,8 +61,8 @@ public class GrnController {
     }
 
     @GetMapping("getPage")
-    public Result getPage(Integer page, Integer size){
-        Page<Grn> grnPage = iGrnService.getPage(page, size);
+    public Result getPage(Integer current, Integer size){
+        Page<Grn> grnPage = iGrnService.getPage(current, size);
         Integer code = grnPage != null ? Code.GET_OK : Code.GET_ERR;
         String msg = grnPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, grnPage, msg);
