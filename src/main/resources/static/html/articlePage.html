@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>货号管理</title>
-    <link rel="stylesheet" href="../bootstrap-4.6.1-dist/css/bootstrap.css">
-    <script src="../js/jquery.min.js"></script>
-    <link rel="Stylesheet " href="../css/bootstrap.css">
-    <script type="text/javascript" src="../js/bootstrap.js"></script>
+<!--    <link rel="stylesheet" href="../bootstrap-4.6.1-dist/css/bootstrap.css">-->
+<!--    <script src="../js/jquery.min.js"></script>-->
+<!--    <link rel="Stylesheet " href="../css/bootstrap.css">-->
+<!--    <script type="text/javascript" src="../js/bootstrap.js"></script>-->
+    <link rel="stylesheet" href="../bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-4.6.1-dist/bootstrap-3.min.css">
+    <script type="text/javascript" src="../bootstrap-4.6.1-dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.6.1-dist/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/article.js"></script>
 </head>
 <body>
 <header>
@@ -110,237 +115,240 @@
         </div>
     </div>
 </div>
-<table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-        <th scope="col">序号</th>
-        <th scope="col">货号</th>
-        <th scope="col">商品名</th>
-        <th scope="col">色号</th>
-        <th scope="col">尺码</th>
-        <th scope="col">数量</th>
-        <th scope="col">操作</th>
-    </tr>
-    </thead>
-    <tbody id="tbody">
-    </tbody>
-</table>
+<div class="container-fluid">
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">序号</th>
+            <th scope="col">货号</th>
+            <th scope="col">商品名</th>
+            <th scope="col">色号</th>
+            <th scope="col">尺码</th>
+            <th scope="col">数量</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
 
-<nav aria-label="Page navigation example" style="float: right">
-    <ul class="pagination">
-        <li class="page-item" id="pre">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <!--        <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li>-->
-        <!--        <li class="page-item"><a class="page-link" href="#" onclick="page(2,5)" id="page2">2</a></li>-->
-        <li class="page-item" id="next">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+    <nav aria-label="Page navigation example" style="float: right">
+        <ul class="pagination justify-content-end">
+            <li class="page-item" id="pre">
+                <a class="page-link" href="javascript:;" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" id="next">
+                <a class="page-link" href="javascript:;" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
-<!--<div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">-->
-<!--    &lt;!&ndash;    class hide改成show 显示&ndash;&gt;-->
-<!--    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">-->
-<!--        <div class="toast-header">-->
-<!--            <img src="..." class="rounded mr-2" alt="...">-->
-<!--            <strong class="mr-auto">Bootstrap</strong>-->
-<!--            <small>11 mins ago</small>-->
-<!--            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--            </button>-->
-<!--        </div>-->
-<!--        <div class="toast-body">-->
-<!--            Hello, world! This is a toast message.-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+    <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 10; right: 0; bottom: 0;">
+        <!--    class hide改成show 显示-->
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true"
+             data-delay="2000">
+            <div class="toast-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-trash" viewBox="0 0 16 16">
+                    <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd"
+                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+                <strong class="mr-auto">删除成功</strong>
+                <small></small>
+            </div>
+            <div class="toast-body">
+            </div>
+        </div>
+    </div>
+</div>
 
-<script>
+<!--<script>-->
 
 
 
-    function page(page, size) {
-        var other;
-        $.get({
-            url: "/article_number/getPage",
-            data: {
-                page: page,
-                size: size
-            },
-            success: function (data) {
-                if(data.code === 20041){
-                    var html = "";
-                    var d = data.data.records;
-                    other = data.data;
-                    for (var i = 0; i < d.length; i++) {
-                        html += "<tr>";
-                        html += "<td>" + (i + 1) + "</td>";
-                        html += "<td>" + d[i].articleNumber + "</td>";
-                        html += "<td>" + d[i].tradeName + "</td>";
-                        html += "<td>" + d[i].colorNo + "</td>";
-                        html += "<td>" + d[i].size + "</td>";
-                        html += "<td>" + d[i].number + "</td>";
-                        //
-                        html += "<td><button type=\"button\" class=\"btn-info\" data-toggle=\"modal\" data-target=\"#updateModal\""+ "data-whatever=" + d[i].id + ">修改</button>" +
-                            "<button type=\"button\" class=\"btn-danger\" "+ "id=" + d[i].id + ">删除</button></td>";
-                        // html += "<td><a href='/user/delete?id=" + d[i].id + "'>删除</a></td>";
-                        html += "</tr>";
-                    }
-                    $("#tbody").html(html);
-                    localStorage.setItem('pages', other.pages);
-                    localStorage.setItem('size', other.size);
-                    localStorage.setItem('current', other.current);
-                    localStorage.setItem('total', other.total);
-                }
-            }
-        });
-        // console.log(other);
-        // return "other";
-    }
+<!--    function page(page, size) {-->
+<!--        var other;-->
+<!--        $.get({-->
+<!--            url: "/article_number/getPage",-->
+<!--            data: {-->
+<!--                page: page,-->
+<!--                size: size-->
+<!--            },-->
+<!--            success: function (data) {-->
+<!--                if(data.code === 20041){-->
+<!--                    var html = "";-->
+<!--                    var d = data.data.records;-->
+<!--                    other = data.data;-->
+<!--                    for (var i = 0; i < d.length; i++) {-->
+<!--                        html += "<tr>";-->
+<!--                        html += "<td>" + (i + 1) + "</td>";-->
+<!--                        html += "<td>" + d[i].articleNumber + "</td>";-->
+<!--                        html += "<td>" + d[i].tradeName + "</td>";-->
+<!--                        html += "<td>" + d[i].colorNo + "</td>";-->
+<!--                        html += "<td>" + d[i].size + "</td>";-->
+<!--                        html += "<td>" + d[i].number + "</td>";-->
+<!--                        //-->
+<!--                        html += "<td><button type=\"button\" class=\"btn-info\" data-toggle=\"modal\" data-target=\"#updateModal\""+ "data-whatever=" + d[i].id + ">修改</button>" +-->
+<!--                            "<button type=\"button\" class=\"btn-danger\" "+ "id=" + d[i].id + ">删除</button></td>";-->
+<!--                        // html += "<td><a href='/user/delete?id=" + d[i].id + "'>删除</a></td>";-->
+<!--                        html += "</tr>";-->
+<!--                    }-->
+<!--                    $("#tbody").html(html);-->
+<!--                    localStorage.setItem('pages', other.pages);-->
+<!--                    localStorage.setItem('size', other.size);-->
+<!--                    localStorage.setItem('current', other.current);-->
+<!--                    localStorage.setItem('total', other.total);-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--        // console.log(other);-->
+<!--        // return "other";-->
+<!--    }-->
 
-    window.onload = function () {
-        page(1, 5);
-        var pages = localStorage.getItem('pages');
-        var size = localStorage.getItem('size');
-        // var line = ' <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li> ';
-        var line = "";
-        for (var i = 1; i <= pages; i++) {
-            line += '<li class="page-item"><a class="page-link" href="#" onclick="page(' + i + ',' + size + ')" id="page' + i + '">' + i + '</a></li>';
-        }
-        $("#pre").after(line);
-    }
-    $("#pre").click(function () {
-        var current = localStorage.getItem('current');
-        var size = localStorage.getItem('size');
-        if (current > 1) {
-            current--;
-            page(current, size);
-        }
-    });
-    $("#next").click(function () {
-        var current = localStorage.getItem('current');
-        var size = localStorage.getItem('size');
-        var pages = localStorage.getItem('pages');
-        if (current < pages) {
-            current++;
-            page(current, size);
-        }
-    });
-    $("#tbody").on("click", "button", function () {
-        var id = $(this).attr("id");
-        var cals = $(this).attr("class");
-        // console.log(cals);
-        if(cals === 'btn-danger'){
-            $.ajax({
-                url: "/article_number/delete/" + id, //请求地址
-                type: "DELETE", //请求方式
-                success: function (data) {
-                    if (data.code === 20021) {
-                        alert("删除成功");
-                        page(1, 5);
-                    }
-                }
-            });
-        }
-        else{
+<!--    window.onload = function () {-->
+<!--        page(1, 5);-->
+<!--        var pages = localStorage.getItem('pages');-->
+<!--        var size = localStorage.getItem('size');-->
+<!--        // var line = ' <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li> ';-->
+<!--        var line = "";-->
+<!--        for (var i = 1; i <= pages; i++) {-->
+<!--            line += '<li class="page-item"><a class="page-link" href="#" onclick="page(' + i + ',' + size + ')" id="page' + i + '">' + i + '</a></li>';-->
+<!--        }-->
+<!--        $("#pre").after(line);-->
+<!--    }-->
+<!--    $("#pre").click(function () {-->
+<!--        var current = localStorage.getItem('current');-->
+<!--        var size = localStorage.getItem('size');-->
+<!--        if (current > 1) {-->
+<!--            current&#45;&#45;;-->
+<!--            page(current, size);-->
+<!--        }-->
+<!--    });-->
+<!--    $("#next").click(function () {-->
+<!--        var current = localStorage.getItem('current');-->
+<!--        var size = localStorage.getItem('size');-->
+<!--        var pages = localStorage.getItem('pages');-->
+<!--        if (current < pages) {-->
+<!--            current++;-->
+<!--            page(current, size);-->
+<!--        }-->
+<!--    });-->
+<!--    $("#tbody").on("click", "button", function () {-->
+<!--        var id = $(this).attr("id");-->
+<!--        var cals = $(this).attr("class");-->
+<!--        // console.log(cals);-->
+<!--        if(cals === 'btn-danger'){-->
+<!--            $.ajax({-->
+<!--                url: "/article_number/delete/" + id, //请求地址-->
+<!--                type: "DELETE", //请求方式-->
+<!--                success: function (data) {-->
+<!--                    if (data.code === 20021) {-->
+<!--                        alert("删除成功");-->
+<!--                        page(1, 5);-->
+<!--                    }-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--        else{-->
 
-        }
-    });
-    $("#save").on("click", function () {
-        // console.log($("#tradeName").val());
-        // console.log($("#colorNo").val());
-        // console.log($("#size").val());
-        var tradeName = $("#tradeName").val();
-        var colorNo = $("#colorNo").val();
-        var size = $("#size").val();
-        if(tradeName === ''||colorNo === ''||size ===  ''){
-            alert('输入不能为空');
-            return ;
-        }
-        $.ajax({
-            url: "/article_number/save", //请求地址
-            type: "POST", //请求方式
-            contentType: "application/json",
-            data: JSON.stringify({
-                tradeName: tradeName,
-                colorNo: colorNo,
-                size: size
-            }),
-            success: function (data) {
-                if (data.code === 20011) {
-                    alert("新增成功");
-                    page(1, 5);
-                }
-            }
-        });
-    });
-    $("#get").on("click", function () {
-        var articleNumber = $("#getArticleNumber").val();
-        var tradeName = $("#getTradeName").val();
-        var colorNo = $("#getColorNo").val();
-        var size = $("#getSize").val();
-        // console.log($("#tradeName").val());
-        // console.log($("#colorNo").val());
-        // console.log($("#size").val());
-        $.ajax({
-            url: "/article_number/get", //请求地址
-            type: "GET", //请求方式
-            data: {
-                articleNumber: articleNumber,
-                tradeName: tradeName,
-                colorNo: colorNo,
-                size: size
-            },
-            success: function (data) {
-                console.log(data.code);
-                if (data.code === 20041) {
+<!--        }-->
+<!--    });-->
+<!--    $("#save").on("click", function () {-->
+<!--        // console.log($("#tradeName").val());-->
+<!--        // console.log($("#colorNo").val());-->
+<!--        // console.log($("#size").val());-->
+<!--        var tradeName = $("#tradeName").val();-->
+<!--        var colorNo = $("#colorNo").val();-->
+<!--        var size = $("#size").val();-->
+<!--        if(tradeName === ''||colorNo === ''||size ===  ''){-->
+<!--            alert('输入不能为空');-->
+<!--            return ;-->
+<!--        }-->
+<!--        $.ajax({-->
+<!--            url: "/article_number/save", //请求地址-->
+<!--            type: "POST", //请求方式-->
+<!--            contentType: "application/json",-->
+<!--            data: JSON.stringify({-->
+<!--                tradeName: tradeName,-->
+<!--                colorNo: colorNo,-->
+<!--                size: size-->
+<!--            }),-->
+<!--            success: function (data) {-->
+<!--                if (data.code === 20011) {-->
+<!--                    alert("新增成功");-->
+<!--                    page(1, 5);-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--    $("#get").on("click", function () {-->
+<!--        var articleNumber = $("#getArticleNumber").val();-->
+<!--        var tradeName = $("#getTradeName").val();-->
+<!--        var colorNo = $("#getColorNo").val();-->
+<!--        var size = $("#getSize").val();-->
+<!--        // console.log($("#tradeName").val());-->
+<!--        // console.log($("#colorNo").val());-->
+<!--        // console.log($("#size").val());-->
+<!--        $.ajax({-->
+<!--            url: "/article_number/get", //请求地址-->
+<!--            type: "GET", //请求方式-->
+<!--            data: {-->
+<!--                articleNumber: articleNumber,-->
+<!--                tradeName: tradeName,-->
+<!--                colorNo: colorNo,-->
+<!--                size: size-->
+<!--            },-->
+<!--            success: function (data) {-->
+<!--                console.log(data.code);-->
+<!--                if (data.code === 20041) {-->
 
-                }
-            }
-        });
-    });
-    $("#update").on("click", function () {
-        // console.log($("#tradeName").val());
-        // console.log($("#colorNo").val());
-        // console.log($("#size").val());
-        var tradeName = $("#UtradeName").val();
-        var colorNo = $("#UcolorNo").val();
-        var size = $("#Usize").val();
-        var id = $("#uid").val();
-        if(tradeName === ''&&colorNo === ''&&size === ''){
-            alert("未修改值");
-            return;
-        }
-        // console.log(id);
-        $.ajax({
-            url: "/article_number/update", //请求地址
-            type: "PUT", //请求方式
-            contentType: "application/json",
-            data: JSON.stringify({
-                id: id,
-                tradeName: tradeName,
-                colorNo: colorNo,
-                size: size
-            }),
-            success: function (data) {
-                if (data.code === 20031) {
-                    alert("修改成功");
-                    page(1, 5);
-                }
-            }
-        });
-    });
-    $('#updateModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var id = button.data('whatever');
-        var modal = $(this);
-        modal.find('.modal-body textarea').val(id);
-    })
-</script>
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--    $("#update").on("click", function () {-->
+<!--        // console.log($("#tradeName").val());-->
+<!--        // console.log($("#colorNo").val());-->
+<!--        // console.log($("#size").val());-->
+<!--        var tradeName = $("#UtradeName").val();-->
+<!--        var colorNo = $("#UcolorNo").val();-->
+<!--        var size = $("#Usize").val();-->
+<!--        var id = $("#uid").val();-->
+<!--        if(tradeName === ''&&colorNo === ''&&size === ''){-->
+<!--            alert("未修改值");-->
+<!--            return;-->
+<!--        }-->
+<!--        // console.log(id);-->
+<!--        $.ajax({-->
+<!--            url: "/article_number/update", //请求地址-->
+<!--            type: "PUT", //请求方式-->
+<!--            contentType: "application/json",-->
+<!--            data: JSON.stringify({-->
+<!--                id: id,-->
+<!--                tradeName: tradeName,-->
+<!--                colorNo: colorNo,-->
+<!--                size: size-->
+<!--            }),-->
+<!--            success: function (data) {-->
+<!--                if (data.code === 20031) {-->
+<!--                    alert("修改成功");-->
+<!--                    page(1, 5);-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--    $('#updateModal').on('show.bs.modal', function (event) {-->
+<!--        var button = $(event.relatedTarget);-->
+<!--        var id = button.data('whatever');-->
+<!--        var modal = $(this);-->
+<!--        modal.find('.modal-body textarea').val(id);-->
+<!--    })-->
+<!--</script>-->
 </body>
 </html>
