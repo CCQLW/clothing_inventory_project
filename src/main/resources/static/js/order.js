@@ -1,6 +1,6 @@
 var MAXPAGE = 5;
 $(function () {
-    fuzzyOrder(1);
+    getTable(1);
     $("#pre").click(function () {
         var current = sessionStorage.getItem('current');
         if (current > 1) {
@@ -30,15 +30,12 @@ $(function () {
             $("#next").click();
         }
     });
-    // $("#search").click(fuzzyOrder(1));
-    // $("#search").click(function () {
+    $("#search").click(function () {
+        fuzzyOrder(1);
+    });
+    // $("#search").on('click', function () {
     //     fuzzyOrder(1);
     // });
-    $("#search").on('click', function () {
-        sessionStorage.setItem("a", $("#receiptNumber").val());
-        fuzzyOrder(1);
-        sessionStorage.setItem("a", "");
-    });
 });
 
 
@@ -67,6 +64,7 @@ function getTable(current) {
             "current": current,
             "size": MAXPAGE
         },
+        // sync: false,异步
         success: function (data) {
             if (data.result === "success") {
                 setsession(data.data);
@@ -136,7 +134,7 @@ function fuzzyOrder(page) {
         data: {
             "page": page,
             "size": MAXPAGE,
-            "receiptNumber": sessionStorage.getItem("a"),
+            "receiptNumber": $(".receiptNumber").val(),
             // "receiptNumber": "1",
             "warehouse": $(".warehouse").val(),
             // "storageTime": $("#storageTime").val(),
