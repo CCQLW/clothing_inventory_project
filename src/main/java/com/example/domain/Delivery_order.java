@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import java.io.Serializable;
@@ -46,7 +48,7 @@ public class Delivery_order implements Serializable {
     /**
      * 出库时间
      */
-    private java.sql.Date storageTime;
+    private Date storageTime;
     /**
      * 经办人
      */
@@ -63,5 +65,16 @@ public class Delivery_order implements Serializable {
     @TableLogic(value = "0", delval = "1")
     private Integer isDelete;
 
+    @TableField(exist = false)
+    private Date date = new Date();
+
+    public void setReceiptNumber(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        receiptNumber = "JP-QLW-" + df.format(date);
+    }
+
+    public void setStorageTime(){
+        storageTime  = date;
+    }
 
 }

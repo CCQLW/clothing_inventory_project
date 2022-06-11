@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.text.SimpleDateFormat;
 
 /**
  * <p>
@@ -29,8 +30,11 @@ public class Delivery_orderController {
     private IDelivery_orderService delivery_orderService;
 
     @PostMapping
-    public Result saveDelivery_order(@RequestBody Delivery_order details) {
-        return new Result(delivery_orderService.save(details));
+    public Result saveDelivery_order(@RequestBody Delivery_order order) {
+        order.setReceiptNumber();
+        order.setStorageTime();
+        System.out.println(order);
+        return new Result(delivery_orderService.save(order));
     }
 
     @DeleteMapping("/{id}")
@@ -39,8 +43,8 @@ public class Delivery_orderController {
     }
 
     @PutMapping
-    public Result updateDelivery_order(@RequestBody Delivery_order details) {
-        return new Result(delivery_orderService.updateById(details));
+    public Result updateDelivery_order(@RequestBody Delivery_order order) {
+        return new Result(delivery_orderService.updateById(order));
     }
 
     @GetMapping
@@ -54,7 +58,6 @@ public class Delivery_orderController {
     }
     @GetMapping("/pageorder")
     public Result getOrderPage(Integer current, Integer size) {
-//        LambdaQueryWrapper<Delivery_order> queryWrapper = new LambdaQueryWrapper<>();
         IPage<Delivery_order> page = new Page<>(current, size);
         return new Result(delivery_orderService.page(page));
     }
