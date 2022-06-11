@@ -138,9 +138,9 @@ function loadTable() {
         tr.append("<td>" + value.agent + "</td>");
         tr.append("<td>" + value.source + "</td>");
         tr.append("<td>" + "<div class='row'>" +
-            "<div class='col-md-2'><button type='button' class='btn-info' data-toggle='modal' data-target='#updateModal'" + "data-whatever='" + value.id + "'>修改</button></div>" +
+            "<div class='col-md-3'><button type='button' class='btn-info' data-toggle='modal' data-target='#updateModal'" + "data-whatever='" + value.id + "'>修改</button></div>" +
             // "<div class='col-md-1'></div>" +
-            "<div class='col-md-2'><button type='button' class='btn-danger' "+ "id='" + value.id + "'>删除</button></div></div></td>")
+            "<div class='col-md-3'><button type='button' class='btn-danger' "+ "id='" + value.id + "'>删除</button></div></div></td>")
         $("tbody").append(tr);
     });
 }
