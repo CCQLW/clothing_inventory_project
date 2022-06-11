@@ -49,14 +49,14 @@
 <nav aria-label="Page navigation example" style="float: right">
     <ul class="pagination pagination-lg">
         <li class="page-item" id="pre">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="javascript:;" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <!--        <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li>-->
         <!--        <li class="page-item"><a class="page-link" href="#" onclick="page(2,5)" id="page2">2</a></li>-->
         <li class="page-item" id="next">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="javascript:;" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
@@ -96,7 +96,7 @@
         // var line = ' <li class="page-item"><a class="page-link" href="#" onclick="page(1,10)" id="page1">1</a></li> ';
         var line = "";
         for (var i = 1; i <= pages; i++) {
-            line += '<li class="page-item" ><a class="page-link" href="#" onclick="page(' + i + ',' + size + ')" id="page' + i + '">' + i + '</a></li>';
+            line += '<li class="page-item" ><a class="page-link" href="javascript:;" onclick="page(' + i + ',' + size + ')" id="page' + i + '">' + i + '</a></li>';
         }
         $("#pre").after(line);
     }

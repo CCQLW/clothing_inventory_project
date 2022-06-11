@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.domain.Delivery_order;
@@ -9,6 +10,8 @@ import com.example.service.IDelivery_orderService;
 import com.example.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 
 /**
  * <p>
@@ -49,9 +52,15 @@ public class Delivery_orderController {
         return delivery_orderService.getDelivery_orderById(id);
 
     }
+    @GetMapping("/pageorder")
+    public Result getOrderPage( Integer current, Integer size) {
+//        LambdaQueryWrapper<Delivery_order> queryWrapper = new LambdaQueryWrapper<>();
+        IPage<Delivery_order> page = new Page<>(current, size);
+        return new Result(delivery_orderService.page(page));
+    }
 
     @GetMapping("/page")
-    public Result getPage(Integer current, Integer size,Integer id) {
+    public Result getPage(Integer current, Integer size, Integer id) {
        return delivery_orderService.getdelivery_orderPageById(current, size, id);
 //        IPage<Delivery_order> page = new Page<Delivery_order>(current, size);
 //        return new Result(delivery_orderService.page(page, null));
