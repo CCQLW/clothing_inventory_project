@@ -33,6 +33,31 @@ $(function () {
             });
         }
     });
+    $("#save").on("click", function () {
+        var tradeName = $("#tradeName").val();
+        var colorNo = $("#colorNo").val();
+        var size = $("#size").val();
+        if(tradeName === ''||colorNo === ''||size ===  ''){
+            alert('输入不能为空');
+            return ;
+        }
+        $.ajax({
+            url: "/article_number/save", //请求地址
+            type: "POST", //请求方式
+            contentType: "application/json",
+            data: JSON.stringify({
+                tradeName: tradeName,
+                colorNo: colorNo,
+                size: size
+            }),
+            success: function (data) {
+                if (data.code === 20011) {
+                    alert("新增成功");
+                    getTable(1, MAXPAGE);
+                }
+            }
+        });
+    });
 });
 
 
