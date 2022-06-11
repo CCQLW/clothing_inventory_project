@@ -69,7 +69,7 @@ CREATE TABLE delivery_order (
 CREATE TABLE delivery_details (
 	id INT auto_increment COMMENT '序号',
 	order_id INT COMMENT '出库订单序号',
-	article_number VARCHAR (50) COMMENT '货号',
+	article_id INT COMMENT '货号序号',
 	trade_name VARCHAR (50) COMMENT '商品名',
 	color_no VARCHAR (50) COMMENT '色号',
 	size INT COMMENT '尺码',
@@ -77,6 +77,7 @@ CREATE TABLE delivery_details (
 	is_delete INT DEFAULT '0' COMMENT '是否删除',
 	PRIMARY KEY (id),
 	FOREIGN KEY (order_id) REFERENCES delivery_order (id)
+	FOREIGN KEY (article_id) REFERENCES article_number(id),
 );
 
 ```
