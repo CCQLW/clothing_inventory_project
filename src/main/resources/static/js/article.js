@@ -153,7 +153,6 @@ function getTableByConditions(current) {
     var tradeName = $("#getTradeName").val();
     var colorNo = $("#getColorNo").val();
     var size = $("#getSize").val();
-    console.log(articleNumber);
     $.get({
         url: "/article_number/get",
         data: {

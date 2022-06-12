@@ -1,11 +1,11 @@
 var MAXPAGE = 5;
 $(function () {
-    getTable(1, MAXPAGE);
+    getTableByConditions(1);
     $("#pre").click(function () {
         var current = sessionStorage.getItem('current');
         if (current > 1) {
             current--;
-            getTable(current, MAXPAGE);
+            getTableByConditions(current);
         }
     });
     $("#next").click(function () {
@@ -13,7 +13,21 @@ $(function () {
         var pages = sessionStorage.getItem('pages');
         if (current < pages) {
             current++;
-            getTable(current, MAXPAGE);
+            getTableByConditions(current);
+        }
+    });
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') {
+            $("#pre").click();
+        }else if (event.key === 'ArrowRight') {
+            $("#next").click();
+        }
+    });
+    window.parent.document.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') {
+            $("#pre").click();
+        }else if (event.key === 'ArrowRight') {
+            $("#next").click();
         }
     });
     $("#tbody").on('click', 'button', function () {
@@ -63,29 +77,14 @@ $(function () {
                 }
             }
         });
+        $(this).siblings().click();
+        $("#warehouse").val("");
+        $("#agent").val("");
+        $("#source").val("");
+        $("#myModal").click();
     });
-    $("#get").on("click", function () {
-        var articleNumber = $("#getArticleNumber").val();
-        var tradeName = $("#getTradeName").val();
-        var colorNo = $("#getColorNo").val();
-        var size = $("#getSize").val();
-        // getTableByConditions(1, MAXPAGE, articleNumber, tradeName, colorNo, size);
-        // $.ajax({
-        //     url: "/article_number/get", //请求地址
-        //     type: "GET", //请求方式
-        //     data: {
-        //         articleNumber: articleNumber,
-        //         tradeName: tradeName,
-        //         colorNo: colorNo,
-        //         size: size
-        //     },
-        //     success: function (data) {
-        //         console.log(data.code);
-        //         if (data.code === 20041) {
-        //
-        //         }
-        //     }
-        // });
+    $("#get").click(function () {
+        getTableByConditions(1);
     });
     $("#update").on("click", function () {
         var warehouse = $("#uwarehouse").val();
@@ -111,10 +110,15 @@ $(function () {
             success: function (data) {
                 if (data.code === 20031) {
                     alert("修改成功");
-                    getTable(1, MAXPAGE);
+                    getTableByConditions(1);
                 }
             }
         });
+        $(this).siblings().click();
+        $("#warehouse").val("");
+        $("#agent").val("");
+        $("#source").val("");
+        $("#updateModal").click();
     });
     $("#updateModal").on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -125,6 +129,12 @@ $(function () {
     });
 });
 
+function setsession(data) {
+    sessionStorage.setItem("pagedata", JSON.stringify(data));
+    sessionStorage.setItem("total", data.total);
+    sessionStorage.setItem("current", data.current);
+    sessionStorage.setItem("pages", data.pages);
+}
 
 function loadTable() {
     $("tbody").empty();
@@ -155,19 +165,23 @@ function fmtDateTime(obj) {
     return time;
 }
 
-function getTable(current, size) {
+function getTableByConditions(current) {
+    var receiptNumber = $("#getReceiptNumber").val();
+    var warehouse = $("#getWarehouse").val();
+    var agent = $("#getAgent").val();
+    var source = $("#getSource").val();
     $.get({
-        url: "/grn/getPage",
+        url: "/grn/get",
         data: {
             "current": current,
-            "size": size
+            "receiptNumber": receiptNumber,
+            "warehouse": warehouse,
+            "agent": agent,
+            "source": source
         },
         success: function (data) {
             if (data.code === 20041) {
-                sessionStorage.setItem("pagedata", JSON.stringify(data.data));
-                sessionStorage.setItem("total", data.data.total);
-                sessionStorage.setItem("current", data.data.current);
-                sessionStorage.setItem("pages", data.data.pages);
+                setsession(data.data);
                 loadTable();
                 loadPagination();
             }
