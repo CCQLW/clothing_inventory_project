@@ -5,7 +5,7 @@ $(function () {
         var current = sessionStorage.getItem('current');
         if (current > 1) {
             current--;
-            getTable(current);
+            fuzzyOrder(current);
         }
     });
     // if(sessionStorage.getItem("current") <= 1){
@@ -19,7 +19,7 @@ $(function () {
         if (current < pages) {
             current++;
             // $(this).removeClass("disabled");
-            getTable(current);
+            fuzzyOrder(current);
         } else {
             // $(this).addClass("disabled");
         }
@@ -145,7 +145,7 @@ function loadPagination() {
         li.append('<a class="page-link" href="javascript:;"> ' + i + '</a>');
         li.attr("index", i);
         li.on('click', function () {
-            getTable($(this).attr('index'));
+            fuzzyOrder($(this).attr('index'));
         });
         if (i === parseInt(current)) {
             li.addClass("active");
