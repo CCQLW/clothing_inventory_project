@@ -38,7 +38,7 @@ class ApplicationTests {
     void testUpdate(){
         Article_number articleNumber = new Article_number();
         articleNumber.setColorNo("blue");
-        articleNumber.setId(8);
+        articleNumber.setId(1);
         iArticle_numberService.update(articleNumber);
     }
 

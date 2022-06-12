@@ -132,16 +132,16 @@ function loadTable() {
     $.each(pagedata, function (index, value) {
         var tr = $("<tr></tr>");
         tr.append("<td>" + (index + 1) + "</td>");
-        tr.append("<td><a class='btn btn-primary btn-lg active' role='button' " + "id=" + value.id + ">" + value.receiptNumber + "</a></td>");
+        tr.append("<td><a class='nav-link' role='button' " + "id=" + value.id + ">" + value.receiptNumber + "</a></td>");
         tr.append("<td>" + value.warehouse + "</td>");
         tr.append("<td>" + fmtDateTime(value.storageTime) + "</td>");
         // tr.append("<td>" + fmtDateTime(value.storageTime) + "</td>");
         tr.append("<td>" + value.agent + "</td>");
         tr.append("<td>" + value.source + "</td>");
         tr.append("<td>" + "<div class='row'>" +
-            "<div class='col-md-3'><button type='button' class='btn-info' data-toggle='modal' data-target='#updateModal'" + "data-whatever='" + value.id + "'>修改</button></div>" +
+            "<div class='col-md-3'><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal'" + "data-whatever='" + value.id + "'>修改</button></div>" +
             // "<div class='col-md-1'></div>" +
-            "<div class='col-md-3'><button type='button' class='btn-danger' "+ "id='" + value.id + "'>删除</button></div></div></td>")
+            "<div class='col-md-3'><button type='button' class='btn btn-danger' "+ "id='" + value.id + "'>删除</button></div></div></td>")
         $("tbody").append(tr);
     });
 }
