@@ -1,6 +1,6 @@
 var MAXPAGE = 5;
 $(function () {
-    getTable(1);
+    fuzzyOrder(1);
     $("#pre").click(function () {
         var current = sessionStorage.getItem('current');
         if (current > 1) {
@@ -67,7 +67,7 @@ $(function () {
                 if (data.result === "success") {
                     // alert("新增成功");
                     console.log("新增成功");
-                    getTable(1, MAXPAGE);
+                    fuzzyOrder(1, MAXPAGE);
                 }
             }
         });
@@ -161,7 +161,7 @@ function deleteOrder(id) {
         type: "DELETE",
         success: function (data) {
             if (data.result === "success") {
-                getTable(1);
+                fuzzyOrder(1);
             }
         }
     });
@@ -188,7 +188,7 @@ function updateOrder() {
         }),
         success: function (data) {
             if (data.result === "success") {
-                getTable(1);
+                fuzzyOrder(1);
             }
         }
     });
