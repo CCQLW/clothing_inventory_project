@@ -48,7 +48,30 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
 
     //改
     public boolean update(Warehousing_detail warehousing_detail){
-        warehousing_detail.setArticle(articleNumberDao.selectById(warehousing_detail.getArticleId()));
+        Warehousing_detail warehousing_detail1 = warehousing_detailDao.selectById(warehousing_detail.getId());
+        Article_number article_number = articleNumberDao.selectById(warehousing_detail.getArticleId());
+        Article_number article_number1 = articleNumberDao.selectById(warehousing_detail1.getArticleId());
+        System.out.println("----------------------------------------------");
+        System.out.println(article_number.getNumber());
+        System.out.println(warehousing_detail.getNumber());
+        System.out.println(warehousing_detail1.getNumber());
+        System.out.println("----------------------------------------------");
+        Integer updateNumber = 0;
+        if(warehousing_detail.getNumber() != null) {
+            updateNumber = warehousing_detail.getNumber() - warehousing_detail1.getNumber();
+        }
+        if(warehousing_detail.getArticleId() == null){
+            warehousing_detail.setArticle(article_number1);
+        }
+        else{
+            warehousing_detail.setArticle(article_number);
+        }
+        if(article_number.getNumber() + updateNumber > 0){
+            article_number.setNumber(article_number.getNumber() + updateNumber);
+        }
+        else{
+            return false;
+        }
         return warehousing_detailDao.updateById(warehousing_detail) > 0;
     }
 
@@ -74,5 +97,17 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
         queryWrapper.eq(Warehousing_detail::getGrnId, id);
         Page<Warehousing_detail> warehousing_detailPage = new Page<>(current, size);
         return warehousing_detailDao.selectPage(warehousing_detailPage, queryWrapper);
+    }
+
+    //模糊查询
+    public Page<Warehousing_detail> get(Warehousing_detail warehousing_detail, Integer current , Integer size){
+        Page<Warehousing_detail> page = new Page<>(current, size);
+        LambdaQueryWrapper<Warehousing_detail> lqw = new LambdaQueryWrapper<Warehousing_detail>();
+        if(warehousing_detail.getArticleNumber() != null) lqw.like(Warehousing_detail::getArticleNumber, warehousing_detail.getArticleNumber());
+        if(warehousing_detail.getTradeName() != null) lqw.like(Warehousing_detail::getTradeName, warehousing_detail.getTradeName());
+        if(warehousing_detail.getColorNo() != null) lqw.like(Warehousing_detail::getColorNo, warehousing_detail.getColorNo());
+        if(warehousing_detail.getSize() != null) lqw.like(Warehousing_detail::getSize, warehousing_detail.getSize());
+        lqw.like(Warehousing_detail::getGrnId, warehousing_detail.getGrnId());
+        return warehousing_detailDao.selectPage(page, lqw);
     }
 }

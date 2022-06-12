@@ -2,6 +2,7 @@ package com.example.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.domain.Article_number;
 import com.example.domain.Grn;
 import com.example.domain.Warehousing_detail;
 import com.example.service.IGrnService;
@@ -66,10 +67,24 @@ public class Warehousing_detailController {
         String msg = warehousing_detailPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, warehousing_detailPage, msg);
     }
+//
+//    @GetMapping("getByGrnIdPage")
+//    public Result getByGrnIdPage(Integer page, Integer size, Integer id){
+//        Page<Warehousing_detail> warehousing_detailPage = iWarehousing_detailService.getByGrnIdPage(page, size, id);
+//        Integer code = warehousing_detailPage != null ? Code.GET_OK : Code.GET_ERR;
+//        String msg = warehousing_detailPage != null ? "" : "数据查询失败，请重试！";
+//        return new Result(code, warehousing_detailPage, msg);
+//    }
 
-    @GetMapping("getByGrnIdPage")
-    public Result getByGrnIdPage(Integer page, Integer size, Integer id){
-        Page<Warehousing_detail> warehousing_detailPage = iWarehousing_detailService.getByGrnIdPage(page, size, id);
+    @GetMapping("/get")
+    public Result get(Integer grnId, Integer current, String articleNumber, String tradeName, String colorNo, Integer size){
+        Warehousing_detail warehousing_detail = new Warehousing_detail();
+        warehousing_detail.setArticleNumber(articleNumber);
+        warehousing_detail.setTradeName(tradeName);
+        warehousing_detail.setColorNo(colorNo);
+        warehousing_detail.setSize(size);
+        warehousing_detail.setGrnId(grnId);
+        Page<Warehousing_detail> warehousing_detailPage = iWarehousing_detailService.get(warehousing_detail, current, 5);
         Integer code = warehousing_detailPage != null ? Code.GET_OK : Code.GET_ERR;
         String msg = warehousing_detailPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, warehousing_detailPage, msg);
