@@ -44,6 +44,10 @@ public class UserControllerResult {
         user.setPasswd(passwd);
         return new Result(userService.updateById(user));
     }
+//    @PutMapping
+//    public Result update(User user) {
+//        return new Result(userService.updateById(user));
+//    }
 
     @GetMapping
     public Result getAll() {
@@ -112,16 +116,23 @@ public class UserControllerResult {
 
     @GetMapping("/update")
     public Result update(User user) {
-        if (user.getUsername() != null) {
-            User user1 = userService.getByUsernameUser(user.getUsername());
-            if (user1 == null) {
-                return new Result("用户不存在");
-            } else {
-                user.setId(user1.getId());
-                return new Result(userService.updateById(user));
-            }
-        } else if (user.getId() != null) return new Result(userService.updateById(user));
-        else return new Result("用户名与id不能同时为空");
+        if("".equals(user.getUsername())){
+            user.setUsername(null);
+        }
+        if("".equals(user.getPasswd())){
+            user.setPasswd(null);
+        }
+        return new Result(userService.updateById(user));
+//        if (user.getUsername() != null) {
+//            User user1 = userService.getByUsernameUser(user.getUsername());
+//            if (user1 == null) {
+//                return new Result("用户不存在");
+//            } else {
+//                user.setId(user1.getId());
+//                return new Result(userService.updateById(user));
+//            }
+//        } else if (user.getId() != null) return new Result(userService.updateById(user));
+//        else return new Result("用户名与id不能同时为空");
     }
 
     @GetMapping("/page")

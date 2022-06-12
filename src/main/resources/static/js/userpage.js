@@ -51,18 +51,23 @@ $(function () {
         var warehouse = $("#savewarehouse").val();
         var agent = $("#saveagent").val();
         var whereabouts = $("#savesource").val();
-        if (warehouse === '' || agent === '' || whereabouts === '') {
-            alert('输入不能为空');
-            return;
+        var data;
+        if (whereabouts === '') {
+            data=JSON.stringify({
+                username: warehouse,
+                passwd: agent
+            })
+        }else{
+            data=JSON.stringify({
+                username: warehouse,
+                passwd: agent,
+                authority: whereabouts
+            })
         }
         $.post({
-            url: "/delivery_order", //请求地址
+            url: "/user", //请求地址
             contentType: "application/json",
-            data: JSON.stringify({
-                warehouse: warehouse,
-                agent: agent,
-                whereabouts: whereabouts
-            }),
+            data: data,
             success: function (data) {
                 if (data.result === "success") {
                     // alert("新增成功");
@@ -107,12 +112,8 @@ function loadTable() {
     $.each(pagedata, function (index, value) {
         var tr = $("<tr></tr>");
         tr.append("<td>" + (index + 1) + "</td>");
-        tr.append("<td><a class='nav-link' role='button' index='" + value.id + "'>" + value.receiptNumber + "</a></td>");
-
-        tr.append("<td>" + value.warehouse + "</td>");
-        tr.append("<td>" + fmtDateTime(value.storageTime) + "</td>");
-        tr.append("<td>" + value.agent + "</td>");
-        tr.append("<td>" + value.whereabouts + "</td>");
+        tr.append("<td>" + value.username + "</td>");
+        tr.append("<td>" + value.authority + "</td>");
         buttenDelete = "<div class='col-md-2'><button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
         buttenUpdate = "<div class='col-md-2'> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='" + value.id + "'>修改</button>";
         tr.append("<td><div class='row'>" + buttenUpdate + "</div>" + buttenDelete + "</div></div></td>");
@@ -120,25 +121,6 @@ function loadTable() {
     });
 }
 
-
-
-function getTable(current) {
-    $.get({
-        url: "/delivery_order/pageorder",
-        data: {
-            "current": current,
-            "size": MAXPAGE
-        },
-        // sync: false,异步
-        success: function (data) {
-            if (data.result === "success") {
-                setsession(data.data);
-                loadTable();
-                loadPagination();
-            }
-        }
-    });
-}
 
 function setsession(data) {
     sessionStorage.setItem("pagedata", JSON.stringify(data));
@@ -153,7 +135,6 @@ function loadPagination() {
     var current = sessionStorage.getItem("current");
     for (var i = 1; i <= pages; i++) {
         var li = $("<li class='page-item yemabiaoqian'></li>");
-        // li.append('<a class="page-link" href="javascript:;" onclick="page(' + i * MAXPAGE + ',' + (i * MAXPAGE + MAXPAGE - 1) + ')"' + 'index="' + i + '"' + i + '</a>');
         li.append('<a class="page-link" href="javascript:;"> ' + i + '</a>');
         li.attr("index", i);
         li.on('click', function () {
@@ -169,7 +150,7 @@ function loadPagination() {
 
 function deleteOrder(id) {
     $.ajax({
-        url: "/delivery_order/" + id,
+        url: "/user/" + id,
         type: "DELETE",
         success: function (data) {
             if (data.result === "success") {
@@ -184,20 +165,14 @@ function updateOrder() {
     var agent = $("#uagent").val();
     var source = $("#usource").val();
     var id = $("#uid").val();
-    // console.log(warehouse);
-    // console.log(agent);
-    // console.log(source);
-    // console.log(id);
+    var url;
+    if (source === '') {
+        url = "/user/update?id=" + id + "&username=" + warehouse + "&passwd=" + agent;
+    } else {
+        url = "/user/update?id=" + id + "&username=" + warehouse + "&passwd=" + agent + "&authority=" + source
+    }
     $.ajax({
-        url: "/delivery_order/",
-        type: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify({
-            id: id,
-            warehouse: warehouse,
-            agent: agent,
-            whereabouts: source
-        }),
+        url: url,
         success: function (data) {
             if (data.result === "success") {
                 fuzzyOrder(1);
@@ -207,17 +182,13 @@ function updateOrder() {
 }
 
 function fuzzyOrder(page) {
-    // console.log($(".receiptNumber").val());
-    // console.log($(".form-control.receiptNumber").val());
     $.get({
-        url: "/delivery_order/fuzzy",
+        url: "/user/fuzzy",
         data: {
             "page": page,
             "size": MAXPAGE,
-            "receiptNumber": $(".receiptNumber").val(),
-            "warehouse": $(".warehouse").val(),
-            "agent": $(".agent").val(),
-            "whereabouts": $(".whereabouts").val()
+            "username": $(".receiptNumber").val(),
+            "authority": $(".warehouse").val(),
         },
         success: function (data) {
             if (data.result === "success") {
