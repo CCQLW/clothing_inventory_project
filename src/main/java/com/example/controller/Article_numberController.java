@@ -78,12 +78,19 @@ public class Article_numberController {
         return new Result(code, article_numberPage, msg);
     }
 
-    @GetMapping("/getNumberById/{id}")
-    public Result getNumberById(@PathVariable Integer id){
-        Article_number article_number = iArticle_numberService.getById(id);
-        Integer code = article_number != null ? Code.GET_OK : Code.GET_ERR;
-        String msg = article_number != null ? "" : "数据查询失败，请重试！";
-        return new Result(code, article_number.getNumber(), msg);
+    @PutMapping("/updateNumber")
+    public Result updateNumber(@RequestBody Article_number articleNumber){
+        Article_number articleNumber1 = iArticle_numberService.getById(articleNumber.getId());
+        Integer code = articleNumber1 != null ? Code.GET_OK : Code.GET_ERR;
+        boolean flag = articleNumber1 != null;
+        if(flag && articleNumber1.getNumber() + articleNumber.getNumber() >= 0){
+            articleNumber1.setNumber(articleNumber1.getNumber() + articleNumber.getNumber());
+        }
+        else{
+            code = Code.GET_ERR;
+            flag = false;
+        }
+        return new Result(code, flag);
     }
 }
 
