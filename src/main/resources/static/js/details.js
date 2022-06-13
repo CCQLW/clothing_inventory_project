@@ -49,17 +49,28 @@ $(function () {
     // // });
     $("#save").on("click", function () {
         var articlename = $("#articlename").val();
+        var articleId = $("#articlename").attr("index");
         var number = $("#number").val();
         if (articlename === '' || number === '') {
             alert('输入不能为空');
             return;
         }
+        if(!updateNumber(articleId,number)){
+            // alert('修改失败');
+            console.log('修改失败');
+            return;
+        }
+        var tradeName= $("#tradeName").val();
         $.post({
             url: "/delivery_details", //请求地址
             contentType: "application/json",
             data: JSON.stringify({
-                warehouse: warehouse,
-                number: number,
+                "orderId":sessionStorage.getItem("id"),
+                "articleId": articleId,
+                // "tradeName": number,
+                // "colorNo"
+                // "size"
+                // "number"
             }),
             success: function (data) {
                 if (data.result === "success") {
@@ -74,40 +85,41 @@ $(function () {
         $("#number").val("");
         // $("#updateModal").click();
     });
-    // $("#update").on("click", function () {
-    //     updateOrder();
-    //     // $("#updateModal").modal('hide');
-    //     $(this).siblings().click();
-    //     $("#uwarehouse").val("");
-    //     $("#uagent").val("");
-    //     $("#usource").val("");
-    //     $("#updateModal").click();
-    // });
-    // $("#updateModal").on('show.bs.modal', function (event) {
-    //     var button = $(event.relatedTarget);
-    //     var id = button.data('whatever');
-    //     // console.log("id=" + id);
-    //     var modal = $(this);
-    //     modal.find('.modal-body textarea').val(id);
-    // });
-
+    $("#update").on("click", function () {
+        updateOrder();
+        // $("#updateModal").modal('hide');
+        $(this).siblings().click();
+        $("#uwarehouse").val("");
+        $("#uagent").val("");
+        $("#usource").val("");
+        $("#updateModal").click();
+    });
+    $("#updateModal").on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('whatever');
+        // console.log("id=" + id);
+        var modal = $(this);
+        modal.find('.modal-body textarea').val(id);
+    });
 });
 
 function updateNumber(id, number) {
+    var result = false;
     $.put({
-        url: "/delivery_details/updateNumber", //请求地址
+        url: "/article_number/updateNumber", //请求地址
         contentType: "application/json",
         data: JSON.stringify({
             id: id,
             number: number,
         }),
+        async: false,
         success: function (data) {
-            if (data.result === "success") {
-                console.log("新增成功");
-                fuzzyOrder(1);
+            if(data.code === 20041){
+                result = true;
             }
         }
     });
+    return result;
 }
 // var article;
 function getArticleById(id) {
