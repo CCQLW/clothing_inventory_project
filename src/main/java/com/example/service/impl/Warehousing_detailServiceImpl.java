@@ -48,30 +48,43 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
 
     //改
     public boolean update(Warehousing_detail warehousing_detail){
-        Warehousing_detail warehousing_detail1 = warehousing_detailDao.selectById(warehousing_detail.getId());
-        Article_number article_number = articleNumberDao.selectById(warehousing_detail.getArticleId());
-        Article_number article_number1 = articleNumberDao.selectById(warehousing_detail1.getArticleId());
-        System.out.println("----------------------------------------------");
-        System.out.println(article_number.getNumber());
-        System.out.println(warehousing_detail.getNumber());
-        System.out.println(warehousing_detail1.getNumber());
-        System.out.println("----------------------------------------------");
-        Integer updateNumber = 0;
-        if(warehousing_detail.getNumber() != null) {
-            updateNumber = warehousing_detail.getNumber() - warehousing_detail1.getNumber();
-        }
+        Warehousing_detail warehousing_detail1 = warehousing_detailDao.selectById(warehousing_detail.getId());//旧的明细
+        Article_number article_number;
         if(warehousing_detail.getArticleId() == null){
-            warehousing_detail.setArticle(article_number1);
+            article_number = articleNumberDao.selectById(warehousing_detail1.getArticleId());
+            Integer updateNumber = 0;
+            if(warehousing_detail.getNumber() != null) {
+                updateNumber = warehousing_detail.getNumber() - warehousing_detail1.getNumber();
+            }
+            if(article_number.getNumber() + updateNumber >= 0){
+                article_number.setNumber(article_number.getNumber() + updateNumber);
+            }
+            else{
+                return false;
+            }
+            articleNumberDao.updateById(article_number);
         }
         else{
-            warehousing_detail.setArticle(article_number);
+            article_number = articleNumberDao.selectById(warehousing_detail.getArticleId());
+            Article_number article_number1 = articleNumberDao.selectById(warehousing_detail1.getArticleId());
+            if(article_number1.getNumber() - warehousing_detail1.getNumber() >= 0){
+                article_number1.setNumber(article_number1.getNumber() - warehousing_detail1.getNumber());
+            }
+            else{
+                return false;
+            }
+            articleNumberDao.updateById(article_number1);
+            Integer updateNumber = 0;
+            if(warehousing_detail.getNumber() == null){
+                updateNumber = warehousing_detail1.getNumber();
+            }
+            else{
+                updateNumber = warehousing_detail.getNumber();
+            }
+            article_number.setNumber(updateNumber);
+            articleNumberDao.updateById(article_number);
         }
-        if(article_number.getNumber() + updateNumber > 0){
-            article_number.setNumber(article_number.getNumber() + updateNumber);
-        }
-        else{
-            return false;
-        }
+        warehousing_detail.setArticle(article_number);
         return warehousing_detailDao.updateById(warehousing_detail) > 0;
     }
 

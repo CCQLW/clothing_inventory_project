@@ -103,6 +103,10 @@ $(function () {
                     alert("修改成功");
                     getTableByConditions(1);
                 }
+                else{
+                    alert("修改失败");
+                    getTableByConditions(1);
+                }
             }
         });
         $(this).siblings().click();

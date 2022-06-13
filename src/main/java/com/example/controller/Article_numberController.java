@@ -77,5 +77,13 @@ public class Article_numberController {
         String msg = article_numberPage != null ? "" : "数据查询失败，请重试！";
         return new Result(code, article_numberPage, msg);
     }
+
+    @GetMapping("/getNumberById/{id}")
+    public Result getNumberById(@PathVariable Integer id){
+        Article_number article_number = iArticle_numberService.getById(id);
+        Integer code = article_number != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = article_number != null ? "" : "数据查询失败，请重试！";
+        return new Result(code, article_number.getNumber(), msg);
+    }
 }
 
