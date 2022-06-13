@@ -90,11 +90,7 @@ $(function () {
     //     var modal = $(this);
     //     modal.find('.modal-body textarea').val(id);
     // });
-    // $("#tbody").on("click", "a", function () {
-    //     var id = $(this).attr("index");
-    //     sessionStorage.setItem("id", id);
-    //     window.location.href = '/html/details.html';
-    // });
+
 });
 
 function updateNumber(id, number) {
@@ -175,10 +171,11 @@ function loadPagination() {
 
 function deleteOrder(id) {
     $.ajax({
-        url: "/delivery_order/" + id,
+        url: "/delivery_details/" + id,
         type: "DELETE",
         success: function (data) {
             if (data.result === "success") {
+                console.log("删除成功");
                 fuzzyOrder(1);
             }
         }
