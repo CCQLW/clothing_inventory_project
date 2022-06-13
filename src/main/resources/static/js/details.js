@@ -55,17 +55,17 @@ $(function () {
             alert('输入不能为空');
             return;
         }
-        if(!updateNumber(articleId,number)){
+        if (!updateNumber(articleId, number)) {
             // alert('修改失败');
             console.log('修改失败');
             return;
         }
-        var tradeName= $("#tradeName").val();
+        var tradeName = $("#tradeName").val();
         $.post({
             url: "/delivery_details", //请求地址
             contentType: "application/json",
             data: JSON.stringify({
-                "orderId":sessionStorage.getItem("id"),
+                "orderId": sessionStorage.getItem("id"),
                 "articleId": articleId,
                 // "tradeName": number,
                 // "colorNo"
@@ -114,20 +114,21 @@ function updateNumber(id, number) {
         }),
         async: false,
         success: function (data) {
-            if(data.code === 20041){
+            if (data.code === 20041) {
                 result = true;
             }
         }
     });
     return result;
 }
+
 // var article;
 function getArticleById(id) {
     var article;
     $.get({
-        url :"/article_number/getById/" +id,
-        async : false,
-        success: function(data) {
+        url: "/article_number/getById/" + id,
+        async: false,
+        success: function (data) {
             article = data.data;
         },
     });
@@ -141,14 +142,14 @@ function loadTable() {
         var tr = $("<tr></tr>");
         tr.append("<td>" + (index + 1) + "</td>");
         var article = getArticleById(value.articleId);
-        tr.append("<td index='"+value.articleId+"'>" + article.articleNumber + "</td>");
+        tr.append("<td index='" + value.articleId + "'>" + article.articleNumber + "</td>");
         tr.append("<td>" + value.tradeName + "</td>");
         tr.append("<td>" + value.colorNo + "</td>");
         tr.append("<td>" + value.size + "</td>");
         tr.append("<td>" + value.number + "</td>");
-        buttenDelete = "<div class='col-md-2'><button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
-        buttenUpdate = "<div class='col-md-2'> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='" + value.id + "'>修改</button>";
-        tr.append("<td><div class='row'>" + buttenUpdate + "</div>" + buttenDelete + "</div></div></td>");
+        buttenUpdate = "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='" + value.id + "'>修改</button>";
+        buttenDelete = "<button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
+        tr.append("<td>" + buttenUpdate + "&emsp;" + buttenDelete + "</td>");
         $("tbody").append(tr);
     });
 }

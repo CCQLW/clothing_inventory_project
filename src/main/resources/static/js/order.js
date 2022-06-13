@@ -112,9 +112,9 @@ function loadTable() {
         tr.append("<td>" + fmtDateTime(value.storageTime) + "</td>");
         tr.append("<td>" + value.agent + "</td>");
         tr.append("<td>" + value.whereabouts + "</td>");
-        buttenDelete = "<div class='col-md-2'><button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
-        buttenUpdate = "<div class='col-md-2'> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='" + value.id + "'>修改</button>";
-        tr.append("<td><div class='row'>" + buttenUpdate + "</div>" + buttenDelete + "</div></div></td>");
+        buttenUpdate = "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='" + value.id + "'>修改</button>";
+        buttenDelete = "<button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
+        tr.append("<td>" + buttenUpdate + "&emsp;" + buttenDelete + "</div></div></td>");
         $("tbody").append(tr);
     });
 }

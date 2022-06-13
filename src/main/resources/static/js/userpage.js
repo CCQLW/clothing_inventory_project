@@ -114,9 +114,9 @@ function loadTable() {
         tr.append("<td>" + (index + 1) + "</td>");
         tr.append("<td>" + value.username + "</td>");
         tr.append("<td>" + value.authority + "</td>");
-        buttenDelete = "<div class='col-md-2'><button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
-        buttenUpdate = "<div class='col-md-2'> <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='" + value.id + "'>修改</button>";
-        tr.append("<td><div class='row'>" + buttenUpdate + "</div>" + buttenDelete + "</div></div></td>");
+        buttenUpdate = "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever='" + value.id + "'>修改</button>";
+        buttenDelete = "<button type='button' class='btn btn-danger' onclick='deleteOrder(" + value.id + ")'>删除</button>";
+        tr.append("<td>" + buttenUpdate + "&emsp;" + buttenDelete + "</td>");
         $("tbody").append(tr);
     });
 }
