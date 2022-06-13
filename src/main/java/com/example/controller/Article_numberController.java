@@ -2,6 +2,7 @@ package com.example.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.dao.Article_numberDao;
 import com.example.domain.Article_number;
 import com.example.service.IArticle_numberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,11 @@ public class Article_numberController {
             code = Code.GET_ERR;
             flag = false;
         }
+        System.out.println("---------------------------------");
+        System.out.println(articleNumber1.getNumber());
+        System.out.println(articleNumber1.getId());
+        System.out.println("---------------------------------");
+        iArticle_numberService.update(articleNumber1);
         return new Result(code, flag);
     }
 }

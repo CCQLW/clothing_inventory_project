@@ -45,7 +45,9 @@ public class Article_numberServiceImpl implements IArticle_numberService {
         if(articleNumber.getSize() == null){
             articleNumber.setSize(articleNumber1.getSize());
         }
-        articleNumber.setNumber(articleNumber1.getNumber());
+        if(articleNumber.getNumber() == null){
+            articleNumber.setNumber(articleNumber1.getNumber());
+        }
         articleNumber.setArticleNumber();
         return articleNumberDao.updateById(articleNumber) > 0;
     }
