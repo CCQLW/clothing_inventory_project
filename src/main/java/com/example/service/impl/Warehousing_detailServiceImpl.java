@@ -43,6 +43,12 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
 
     //删
     public boolean delete(Integer id){
+        Warehousing_detail warehousingDetail = warehousing_detailDao.selectById(id);
+        Article_number articleNumber = articleNumberDao.selectById(warehousingDetail.getArticleId());
+        if(articleNumber.getNumber() - warehousingDetail.getNumber() >= 0){
+            articleNumber.setNumber(articleNumber.getNumber() - warehousingDetail.getNumber());
+        }
+        articleNumberDao.updateById(articleNumber);
         return warehousing_detailDao.deleteById(id) > 0;
     }
 

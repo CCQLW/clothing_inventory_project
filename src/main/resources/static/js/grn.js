@@ -33,7 +33,7 @@ $(function () {
     $("#tbody").on('click', 'button', function () {
         var id = $(this).attr("id");
         var cals = $(this).attr("class");
-        if(cals === 'btn-danger') {
+        if(cals === 'btn btn-danger') {
             // console.log(id);
             $.ajax({
                 url: "/grn/delete/" + id, //请求地址
@@ -41,7 +41,7 @@ $(function () {
                 success: function (data) {
                     if (data.code === 20021) {
                         alert("删除成功");
-                        getTable(1, MAXPAGE);
+                        getTableByConditions(1);
                     }
                 }
             });
@@ -73,7 +73,7 @@ $(function () {
             success: function (data) {
                 if (data.code === 20011) {
                     alert("新增成功");
-                    getTable(1, MAXPAGE);
+                    getTableByConditions(1);
                 }
             }
         });
@@ -199,7 +199,7 @@ function loadPagination() {
         li.append('<a class="page-link" href="javascript:;"> ' + i + '</a>');
         li.attr("index", i);
         li.on('click',function () {
-            getTable($(this).attr('index'), MAXPAGE);
+            getTableByConditions($(this).attr('index'));
         });
         if(i === parseInt(current)){
             li.addClass("active");

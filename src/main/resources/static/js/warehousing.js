@@ -33,7 +33,7 @@ $(function () {
     $("#tbody").on('click', 'button', function () {
         var id = $(this).attr("id");
         var cals = $(this).attr("class");
-        if(cals === 'btn-danger'){
+        if(cals === 'btn btn-danger'){
             $.ajax({
                 url: "/warehousing_detail/delete/" + id, //请求地址
                 type: "DELETE", //请求方式
