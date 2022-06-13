@@ -72,7 +72,7 @@ $(function () {
                 if (data.result === "success") {
                     // alert("新增成功");
                     console.log("新增成功");
-                    fuzzyOrder(1, MAXPAGE);
+                    fuzzyOrder(1);
                 }
             }
         });

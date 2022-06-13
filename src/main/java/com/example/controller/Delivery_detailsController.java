@@ -49,7 +49,7 @@ public class Delivery_detailsController {
     }
 
     @GetMapping("/page")
-    public Result getPage(Integer current, Integer size) {
+    public Result getPage(Integer current, Integer size,Integer id) {
         Page<Delivery_details> page = new Page<>(current, size);
         return new Result(delivery_detailsService.page(page, null));
     }
