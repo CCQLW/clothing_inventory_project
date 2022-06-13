@@ -5,22 +5,71 @@
     <title>Title</title>
     <script src="../js/jquery.min.js"></script>
     <link rel="stylesheet" href="../bootstrap-4.6.1-dist/css/bootstrap.css">
+
+    <link rel="stylesheet" href="../bootstrap-4.6.1-dist/css/bootstrap.css">
+    <script src="../js/jquery.min.js"></script>
+    <link rel="Stylesheet " href="../css/bootstrap.css">
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
 </head>
 <body>
-<button type="button" class="btn btn-danger">Danger</button>
+
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        货号：
+                        <select class="form-control custom-select" id="inputGroupSelect01">
+                            <option selected id ="xiala"></option>
+<!--                            <option value="1">One</option>-->
+<!--                            <option value="2">Two</option>-->
+<!--                            <option value="3">Three</option>-->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        货品名称：
+                        <input type="text" class="form-control warehouse" placeholder="货品名称" id="tradeName">
+                    </div>
+                    <div class="form-group">
+                        色号：
+                        <input type="text" class="form-control agent" placeholder="色号" id="colorNo">
+                    </div>
+                    <div class="form-group">
+                        尺码：
+                        <input type="text" class="form-control whereabouts" placeholder="尺码" id="size">
+                    </div>
+                    <button type="button" class="btn btn-default" id="search">搜索</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+                            新增
+                        </button>
+                    </li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</header>
+
 
 </body>
 <script>
     $(function () {
-        // sessionStorage.setItem("aaaaa","123");
-        var a=sessionStorage.getItem("aaaaa");
-        console.log(a)
-        $.get({
-            url:"/a",
-            success:function (data) {
-                console.log(data)
-            }
-        })
+        $.ajax({
+            url :'/article_number/getAll',
+            success: function(data) {
+                var list = data.data;
+                var html = '';
+                for (var i = 0; i < list.length; i++) {
+                    html += '<option value="' + list[i].id + '">' + list[i].articleNumber + '</option>';
+                }
+                $('#inputGroupSelect01').append(html);
+            },
+            async: false
+        });
     })
 </script>
 </html>
