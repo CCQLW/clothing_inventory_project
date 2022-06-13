@@ -45,7 +45,7 @@ public class Delivery_orderServiceImpl extends ServiceImpl<Delivery_orderDao, De
         return new Result(delivery_detailsDao.selectList(queryWrapper));
     }
 
-    public Result getdelivery_orderPageById(Integer current, Integer size, Integer id) {
+    public Result getdelivery_orderPageById(Integer current, Integer size, Integer id,Delivery_details details) {
 //        QueryWrapper<Delivery_details> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.eq("order_id",id);
 //        Page<Delivery_details> page = new Page<>(current, size);
@@ -53,6 +53,9 @@ public class Delivery_orderServiceImpl extends ServiceImpl<Delivery_orderDao, De
 //        两种写法都可以
         LambdaQueryWrapper<Delivery_details> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Delivery_details::getOrderId, id);
+        queryWrapper.like(details.getTradeName() != null, Delivery_details::getTradeName, details.getTradeName());
+        queryWrapper.like(details.getColorNo() != null, Delivery_details::getColorNo, details.getColorNo());
+        queryWrapper.eq(details.getSize() != null, Delivery_details::getSize, details.getSize());
         Page<Delivery_details> page = new Page<>(current, size);
         return new Result(delivery_detailsDao.selectPage(page, queryWrapper));
     }
