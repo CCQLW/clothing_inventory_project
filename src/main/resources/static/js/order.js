@@ -67,7 +67,7 @@ $(function () {
                 if (data.result === "success") {
                     // alert("新增成功");
                     console.log("新增成功");
-                    fuzzyOrder(1, MAXPAGE);
+                    fuzzyOrder(1);
                 }
             }
         });
@@ -108,7 +108,6 @@ function loadTable() {
         var tr = $("<tr></tr>");
         tr.append("<td>" + (index + 1) + "</td>");
         tr.append("<td><a class='nav-link' role='button' index='" + value.id + "'>" + value.receiptNumber + "</a></td>");
-
         tr.append("<td>" + value.warehouse + "</td>");
         tr.append("<td>" + fmtDateTime(value.storageTime) + "</td>");
         tr.append("<td>" + value.agent + "</td>");
