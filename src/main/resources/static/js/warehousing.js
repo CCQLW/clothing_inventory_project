@@ -1,6 +1,7 @@
 var MAXPAGE = 5;
 $(function () {
     getTableByConditions(1);
+    getByArticleId();
     $("#pre").click(function () {
         var current = sessionStorage.getItem('current');
         if (current > 1) {
@@ -121,9 +122,6 @@ $(function () {
         var modal = $(this);
         modal.find('.modal-body textarea').val(id);
     });
-    // $("#insert").on('click', function (){
-    //     getByArticleId();
-    // });
 });
 
 function setsession(data) {
@@ -177,29 +175,24 @@ function getTableByConditions(current) {
             }
         }
     });
+}``
+
+function getByArticleId(){
+    $.get({
+        url: "/article_number/getAll",
+        success: function (data) {
+            if (data.code === 20041) {
+                var list = data.data;
+                var html = '';
+                for (var i = 0; i < list.length; i++) {
+                    html += '<option value="' + list[i].id + '">' + list[i].articleNumber + '</option>';
+                }
+                $('#articleId').append(html);
+                $('#uArticleId').append(html);
+            }
+        }
+    });
 }
-
-// function loadSelect() {
-//     $("articleId").empty();
-//     var selectData = JSON.parse(sessionStorage.getItem("selectData"));
-//     $.each(selectData, function ( value) {
-//         var select = $("articleId");
-//         select.append("<option selected id='" + value.id + "'>" + value.articleNumber + "</option>");
-//         $("tbody").append(tr);
-//     });
-// }
-
-// function getByArticleId(){
-//     $.get({
-//         url: "/article_number/getAll",
-//         success: function (data) {
-//             if (data.code === 20041) {
-//                 setsession(data.data);
-//                 loadSelect();
-//             }
-//         }
-//     });
-// }
 
 function loadPagination() {
     $(".yemabiaoqian").remove();

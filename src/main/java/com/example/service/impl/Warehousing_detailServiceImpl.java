@@ -87,7 +87,7 @@ public class Warehousing_detailServiceImpl implements IWarehousing_detailService
             else{
                 updateNumber = warehousing_detail.getNumber();
             }
-            article_number.setNumber(updateNumber);
+            article_number.setNumber(article_number.getNumber() + updateNumber);
             articleNumberDao.updateById(article_number);
         }
         warehousing_detail.setArticle(article_number);
