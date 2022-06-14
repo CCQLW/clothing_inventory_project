@@ -70,8 +70,8 @@ $(function () {
                 "orderId": sessionStorage.getItem("id"),
                 "articleId": articleId,
                 "tradeName": article.tradeName,
-                "colorNo":article.colorNo,
-                "size":article.size,
+                "colorNo": article.colorNo,
+                "size": article.size,
                 "number": number,
             }),
             success: function (data) {
@@ -88,13 +88,12 @@ $(function () {
         $("#updateModal").click();
     });
     $("#update").on("click", function () {
+        // updateOrder($(this).parent().parent().find("td").eq(1).attr("index"), $(this).parent().parent().find("td").eq(5).text());
         updateOrder();
-        // $("#updateModal").modal('hide');
-        $(this).siblings().click();
-        $("#uwarehouse").val("");
-        $("#uagent").val("");
-        $("#usource").val("");
-        $("#updateModal").click();
+        // $(this).siblings().click();
+        // $("#inputGroupSelectUpdate").find("option:first").prop("selected", true);
+        // $("#unumber").val("");
+        // $("#updateModal").click();
     });
     $("#updateModal").on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -125,18 +124,6 @@ function updateNumber(id, number) {
         }
     });
     return result;
-}
-
-function getArticleById(id) {
-    var article;
-    $.get({
-        url: "/article_number/getById/" + id,
-        async: false,
-        success: function (data) {
-            article = data.data;
-        },
-    });
-    return article;
 }
 
 function loadTable() {
@@ -200,25 +187,42 @@ function deleteOrder(id) {
 }
 
 function updateOrder() {
-    var warehouse = $("#uwarehouse").val();
-    var agent = $("#uagent").val();
-    var source = $("#usource").val();
+    var articleId = $("#inputGroupSelectUpdate").val();
+    var number = $("#unumber").val();
     var id = $("#uid").val();
+    console.log("articleId=" + articleId);
+    if (number === '') {
+        alert('输入不能为空');
+        return;
+    }
+    var detail = getDeailById(id);
+    console.log(detail)
+    var preNumber = detail.number;
+    if (!updateNumber(articleId, preNumber - number)) {
+        // alert('修改失败');
+        console.log('修改失败');
+        return;
+    }
+    var article = getArticleById(articleId);
     $.ajax({
-        url: "/delivery_order/",
+        url: "/delivery_details/",
         type: "PUT",
         contentType: "application/json",
         data: JSON.stringify({
-            id: id,
-            warehouse: warehouse,
-            agent: agent,
-            whereabouts: source
+            "id": id,
+            "articleId": articleId,
+            "tradeName": article.tradeName,
+            "colorNo": article.colorNo,
+            "size": article.size,
+            "number": number,
         }),
         success: function (data) {
             if (data.result === "success") {
+                console.log("修改成功");
                 fuzzyOrder(1);
             }
-        }
+        },
+        async: false,
     });
 }
 
@@ -257,8 +261,8 @@ function fmtDateTime(obj) {
 
 function forms(htmlid) {
     $.ajax({
-        url :'/article_number/getAll',
-        success: function(data) {
+        url: '/article_number/getAll',
+        success: function (data) {
             var list = data.data;
             var html = '';
             for (var i = 0; i < list.length; i++) {
@@ -268,4 +272,29 @@ function forms(htmlid) {
         },
         async: false
     });
+}
+
+
+function getArticleById(id) {
+    var article;
+    $.get({
+        url: "/article_number/getById/" + id,
+        async: false,
+        success: function (data) {
+            article = data.data;
+        },
+    });
+    return article;
+}
+
+function getDeailById(id) {
+    var detail;
+    $.get({
+        url: "/delivery_details/" + id,
+        async: false,
+        success: function (data) {
+            detail = data.data;
+        },
+    });
+    return detail;
 }
