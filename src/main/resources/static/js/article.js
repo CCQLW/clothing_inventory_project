@@ -1,6 +1,7 @@
 var MAXPAGE = 5;
 $(function () {
     getTableByConditions(1);
+    loadSelect();
     $("#pre").click(function () {
         var current = sessionStorage.getItem('current');
         if (current > 1) {
@@ -127,6 +128,20 @@ function setsession(data) {
     sessionStorage.setItem("total", data.total);
     sessionStorage.setItem("current", data.current);
     sessionStorage.setItem("pages", data.pages);
+}
+
+function loadSelect(){
+    var html = '';
+    html += '<option>' + 'T恤' + '</option>';
+    html += '<option>' + '长T' + '</option>';
+    html += '<option>' + 'POLO衫' + '</option>';
+    html += '<option>' + '棒球衫' + '</option>';
+    html += '<option>' + '背心' + '</option>';
+    html += '<option>' + '衬衫' + '</option>';
+    html += '<option>' + '卫衣' + '</option>';
+    html += '<option>' + '其他' + '</option>';
+    $('#tradeName').append(html);
+    $('#UtradeName').append(html);
 }
 
 function loadTable() {
