@@ -90,10 +90,10 @@ $(function () {
     $("#update").on("click", function () {
         // updateOrder($(this).parent().parent().find("td").eq(1).attr("index"), $(this).parent().parent().find("td").eq(5).text());
         updateOrder();
-        // $(this).siblings().click();
-        // $("#inputGroupSelectUpdate").find("option:first").prop("selected", true);
-        // $("#unumber").val("");
-        // $("#updateModal").click();
+        $(this).siblings().click();
+        $("#inputGroupSelectUpdate").find("option:first").prop("selected", true);
+        $("#unumber").val("");
+        $("#updateModal").click();
     });
     $("#updateModal").on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -190,13 +190,11 @@ function updateOrder() {
     var articleId = $("#inputGroupSelectUpdate").val();
     var number = $("#unumber").val();
     var id = $("#uid").val();
-    console.log("articleId=" + articleId);
     if (number === '') {
         alert('输入不能为空');
         return;
     }
     var detail = getDeailById(id);
-    console.log(detail)
     var preNumber = detail.number;
     if (!updateNumber(articleId, preNumber - number)) {
         // alert('修改失败');
