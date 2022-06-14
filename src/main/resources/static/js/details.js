@@ -48,29 +48,31 @@ $(function () {
     // //     fuzzyOrder(1);
     // // });
     $("#save").on("click", function () {
-        var articlename = $("#articlename").val();
-        var articleId = $("#articlename").attr("index");
+        var articleId = $("#inputGroupSelectsave").val();
         var number = $("#number").val();
-        if (articlename === '' || number === '') {
+        if (number === '') {
             alert('输入不能为空');
             return;
         }
-        if (!updateNumber(articleId, number)) {
+        if (!updateNumber(articleId, -number)) {
             // alert('修改失败');
             console.log('修改失败');
             return;
         }
-        var tradeName = $("#tradeName").val();
+        var article = getArticleById(articleId);
+        var tradeName = article.tradeName;
+        var colorNo = article.colorNo;
+        var size = article.size;
         $.post({
             url: "/delivery_details", //请求地址
             contentType: "application/json",
             data: JSON.stringify({
                 "orderId": sessionStorage.getItem("id"),
                 "articleId": articleId,
-                // "tradeName": number,
-                // "colorNo"
-                // "size"
-                // "number"
+                "tradeName": article.tradeName,
+                "colorNo":article.colorNo,
+                "size":article.size,
+                "number": number,
             }),
             success: function (data) {
                 if (data.result === "success") {
@@ -81,9 +83,9 @@ $(function () {
             }
         });
         $(this).siblings().click();
-        $("#articlename").val("");
+        $("#inputGroupSelectsave").find("option:first").prop("selected", true);
         $("#number").val("");
-        // $("#updateModal").click();
+        $("#updateModal").click();
     });
     $("#update").on("click", function () {
         updateOrder();
@@ -101,13 +103,16 @@ $(function () {
         var modal = $(this);
         modal.find('.modal-body textarea').val(id);
     });
+    forms("#inputGroupSelectUpdate");
+    forms("#inputGroupSelectsave");
 });
 
 function updateNumber(id, number) {
     var result = false;
-    $.put({
+    $.ajax({
         url: "/article_number/updateNumber", //请求地址
         contentType: "application/json",
+        type: "PUT",
         data: JSON.stringify({
             id: id,
             number: number,
@@ -122,7 +127,6 @@ function updateNumber(id, number) {
     return result;
 }
 
-// var article;
 function getArticleById(id) {
     var article;
     $.get({
@@ -200,10 +204,6 @@ function updateOrder() {
     var agent = $("#uagent").val();
     var source = $("#usource").val();
     var id = $("#uid").val();
-    // console.log(warehouse);
-    // console.log(agent);
-    // console.log(source);
-    // console.log(id);
     $.ajax({
         url: "/delivery_order/",
         type: "PUT",
@@ -255,3 +255,17 @@ function fmtDateTime(obj) {
     return year + '-' + month.substring(month.length - 2, month.length) + '-' + day.substring(day.length - 2, day.length);
 }
 
+function forms(htmlid) {
+    $.ajax({
+        url :'/article_number/getAll',
+        success: function(data) {
+            var list = data.data;
+            var html = '';
+            for (var i = 0; i < list.length; i++) {
+                html += '<option value="' + list[i].id + '">' + list[i].articleNumber + '</option>';
+            }
+            $(htmlid).append(html);
+        },
+        async: false
+    });
+}

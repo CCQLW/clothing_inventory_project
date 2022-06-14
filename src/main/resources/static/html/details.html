@@ -30,21 +30,21 @@
                     </div>
                     <div class="form-group">
                         货品名称：
-                        <input type="text" class="form-control warehouse" placeholder="货品名称" id ="tradeName">
+                        <input type="text" class="form-control warehouse" placeholder="货品名称" id="tradeName">
                     </div>
                     <div class="form-group">
                         色号：
-                        <input type="text" class="form-control agent" placeholder="色号" id ="colorNo">
+                        <input type="text" class="form-control agent" placeholder="色号" id="colorNo">
                     </div>
                     <div class="form-group">
                         尺码：
-                        <input type="text" class="form-control whereabouts" placeholder="尺码" id ="size">
+                        <input type="text" class="form-control whereabouts" placeholder="尺码" id="size">
                     </div>
                     <button type="button" class="btn btn-default" id="search">搜索</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+                        <button type="button" id="xinzen" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
                             新增
                         </button>
                     </li>
@@ -59,23 +59,26 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="articlename" class="control-label" style="color: black">货号 : </label>
-                        <input id="articlename" type="text" class="form-control">
+                        <label class="control-label" style="color: black">货号 : </label>
+                        <select class="form-control custom-select" id="inputGroupSelectsave" >
+                            <option selected>请选择货号</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="number" class="control-label" style="color: black">数量  : </label>
+                        <label for="number" class="control-label" style="color: black">数量 : </label>
                         <input id="number" type="text" class="form-control">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id = "save">保存</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
             </div>
         </div>
     </div>
@@ -93,12 +96,14 @@
                 <form>
                     <div class="form-group">
                         <div style="display:none">
-                            <textarea id="uid" type="text" class="form-control" ></textarea>
+                            <textarea id="uid" type="text" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="uarticleName" class="control-label" style="color: black">货号 : </label>
-                        <input id="uarticleName" type="text" class="form-control">
+                        <label class="control-label" style="color: black">货号 : </label>
+                        <select class="form-control custom-select" id="inputGroupSelectUpdate">
+                            <option selected>请选择货号</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="unumber" class="control-label" style="color: black">数量 : </label>
@@ -108,7 +113,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id = "update">保存</button>
+                <button type="button" class="btn btn-primary" id="update">保存</button>
             </div>
         </div>
     </div>
@@ -134,7 +139,7 @@
 
     <nav aria-label="Page navigation example" style="float: right">
         <ul class="pagination justify-content-end">
-            <li class="page-item" id="pre" >
+            <li class="page-item" id="pre">
                 <a class="page-link" href="javascript:;" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>

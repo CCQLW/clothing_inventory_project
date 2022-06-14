@@ -9,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class detils {
 
 
-    @Autowired
-    Delivery_detailsServiceImpl delivery_detailsServiceImpl;
-
-    @Test
-    void test() {
-        System.out.println(delivery_detailsServiceImpl.getArticle_numberListByDelivery_detailsId(1));
-    }
+//    @Autowired
+//    Delivery_detailsServiceImpl delivery_detailsServiceImpl;
+//
+//    @Test
+//    void test() {
+//        System.out.println(delivery_detailsServiceImpl.getArticle_numberListByDelivery_detailsId(1));
+//    }
 }
