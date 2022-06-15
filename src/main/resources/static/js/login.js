@@ -14,6 +14,7 @@ function signin() {
         if (resp.result === "success") {
             console.log(resp.data);
             sessionStorage.setItem("userid", resp.data.id);
+            sessionStorage.setItem("username", resp.data.username);
             window.location.href = '/html/index.html';
         } else {
             console.log(resp.result);
