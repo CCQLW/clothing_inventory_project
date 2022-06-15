@@ -16,6 +16,9 @@ spring:
     view:
       prefix: /
       suffix: .html
+#      禁用缓存的参数
+  thymeleaf:
+    cache: false
 #    static-path-pattern: /static/**
 
 mybatis-plus:

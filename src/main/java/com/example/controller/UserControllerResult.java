@@ -91,7 +91,7 @@ public class UserControllerResult {
 
     @GetMapping("/logout")
     public Result logout(String username) {
-        String usernameLogout = request.getSession().getAttribute("username").toString();
+        String usernameLogout = (String) request.getSession().getAttribute("username");
         if (usernameLogout.equals(username)) {
             request.getSession().removeAttribute("username");
             request.getSession().removeAttribute("passwd");
