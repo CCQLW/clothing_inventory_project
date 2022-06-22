@@ -19,7 +19,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         String username = (String) session.getAttribute("username");
         if (username == null) {
             response.sendRedirect("/");
-//            response.sendRedirect("/login.html");
             return false;
         }
         return true;
